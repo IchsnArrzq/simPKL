@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class InstrukturMiddleware
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -13,12 +13,12 @@ class InstrukturMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next,...$roles)
     {
-        if(auth()->user()->role != 'instruktur')
+        if(in_array($request->user()->role,$roles))
         {
-            return redirect()->route('logout');
+            return $next($request);
         }
-        return $next($request);
+        return back();
     }
 }

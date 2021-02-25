@@ -18,7 +18,6 @@ class AddRoleAndPerusahanIdToUsersTable extends Migration
             $table->integer('perusahaan_id')->nullable();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -27,7 +26,8 @@ class AddRoleAndPerusahanIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('role');
+            $table->dropColumn('perusahaan_id');
         });
     }
 }

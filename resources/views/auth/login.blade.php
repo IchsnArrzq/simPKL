@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<!-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -18,9 +18,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -32,9 +32,9 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -49,9 +49,9 @@
                                     <option value="instruktur">Instruktur</option>
                                 </select>
                                 @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -74,9 +74,9 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
                                 @endif
                             </div>
                         </div>
@@ -85,6 +85,39 @@
             </div>
         </div>
     </div>
+</div> -->
+<div class="container">
+    <div class="col s12 m12 l12">
+        <div class="card horizontal">
+            <div class="card-image">
+                <img src="{{ asset('template/images/gallary/18.png') }}" height="400">
+                <span class="card-title">Sim Absensi PKL</span>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h4 class="task-card-title">Login</h4>
+                    <br>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="icon_email" type="email" name="email" class="validate">
+                            <label for="icon_email">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock_outline</i>
+                            <input id="icon_password" type="password" name="password" class="validate">
+                            <label for="icon_password">Password</label>
+                        </div>
+
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light gradient-45deg-red-pink" type="submit" name="action">
+                        <i class="material-icons">lock_open</i> Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
-
