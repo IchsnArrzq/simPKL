@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login')->with('access','Anda Sudah Logout');
 });
 
 Auth::routes();
@@ -26,6 +26,7 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
     Route::group(['middleware'=>'CheckRole:admin'],function(){
         Route::prefix('/admin')->name('admin.')->group(function(){
             Route::get('/user','AdminController@user')->name('user');
+            Route::resource('/account','UserController');
             Route::get('/company','AdminController@company')->name('company');
         });
     });

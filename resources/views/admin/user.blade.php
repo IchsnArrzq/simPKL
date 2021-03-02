@@ -40,12 +40,12 @@
 <div class="container">
     <div class="divider"></div>
     <div id="responsive-table">
-        <h4 class="header"><a class="waves-effect waves-light btn"><i class="material-icons right">add</i> Add</a></h4>
+        <h4 class="header"><a href="{{ route('menu.admin.account.create') }}" class="waves-effect waves-light btn"><i class="material-icons right">add</i> Add</a></h4>
         <div class="row">
 
             <div class="col s12">
                 <table class="responsive-table">
-                    <thead>
+                    <thead class="#ec407a pink lighten-1 white-text">
                         <tr>
                             <th>#</th>
                             <th data-field="id">Name</th>
@@ -61,9 +61,9 @@
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
-                            <td>{{ $data->password }}</td>
+                            <td><button class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="{{ $data->password }}"><i class="material-icons right">lock</i>Encrypt</button></td>
                             <td>{{ $data->role }}</td>
-                            <td><a href="" class="waves-effect waves-light btn yellow">Edit</a></td>
+                            <td><a href="" class="waves-effect waves-light btn yellow black-text">Edit</a></td>
                             <td><a href="" class="waves-effect waves-light btn red">Delete</a></td>
                         </tr>
                         @endforeach

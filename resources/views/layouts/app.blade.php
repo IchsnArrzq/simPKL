@@ -31,6 +31,8 @@
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
     <link href="{{ asset('template/vendors/perfect-scrollbar/perfect-scrollbar.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('template/vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css" rel="stylesheet">
+    <!-- SweetAlert -->
+    <script src="{{ asset('js/sweetalert.js') }}"></script>
 </head>
 
 <body>
@@ -43,10 +45,11 @@
     <!-- End Page Loading -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->
     <!-- START HEADER -->
+    @include('alert')
     @guest
-        <div class="wrapper">
-            @yield('content')
-        </div>
+    <div class="wrapper">
+        @yield('content')
+    </div>
     @endguest
     @auth
     <header id="header" class="page-topbar">
@@ -68,12 +71,11 @@
             <!-- START CONTENT -->
             <section id="content">
                 <!--start container-->
-                    <!--card stats start-->
+                <!--card stats start-->
+                @yield('content')
+                <!--work collections end-->
 
-                    @yield('content')
-                    <!--work collections end-->
-
-                    <!-- //////////////////////////////////////////////////////////////////////////// -->
+                <!-- //////////////////////////////////////////////////////////////////////////// -->
 
                 <!--end container-->
             </section>
@@ -114,6 +116,8 @@
     <script type="text/javascript" src="{{ asset('template/js/plugins.js') }}"></script>
     <!--custom-script.js - Add your own theme custom JS-->
     <script type="text/javascript" src="{{ asset('template/js/custom-script.js') }}"></script>
+
+
 </body>
 
 </html>

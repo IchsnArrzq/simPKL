@@ -73,12 +73,19 @@
                         <span class="nav-text">Absent</span>
                     </a>
                 </li>
+
                 @endif
                 @if(auth()->user()->role == 'instruktur')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>
                         <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">assignment</i>
+                        <span class="nav-text">Task</span>
                     </a>
                 </li>
                 @endif

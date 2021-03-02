@@ -19,6 +19,6 @@ class CheckRole
         {
             return $next($request);
         }
-        return back();
+        return back()->with('access','Hak Akses Dilarang');
     }
 }
