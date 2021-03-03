@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <section id="content">
     <div id="breadcrumbs-wrapper">
@@ -9,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s10 m6 l6">
-                    <h5 class="breadcrumbs-title">Create New User</h5>
+                    <h5 class="breadcrumbs-title">Update User</h5>
                     <ol class="breadcrumbs">
                         <li><a href="{{ route('home') }}">Dashboard</a></li>
                         <li class="active">{{ request()->path() }}</li>
@@ -36,13 +37,14 @@
         </div>
     </div>
 </section>
-<form action="{{ route('menu.admin.account.store') }}" method="post">
+<form action="{{ route('menu.admin.company.update',$company->id) }}" method="post">
     @csrf
     <div class="row">
         <div class="col s12 m12 l12">
-            @include('admin.partials.userForm')
+            <main id="app">
+                @include('admin.partials.companyForm')
+            </main>
         </div>
     </div>
 </form>
-
 @endsection

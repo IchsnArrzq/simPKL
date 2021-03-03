@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRoleAndPerusahanIdToUsersTable extends Migration
+class AddRoleCompanyIdToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,11 @@ class AddRoleAndPerusahanIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('role');
-            $table->integer('perusahaan_id')->nullable();
+            $table->integer('company_id')->nullable();
+
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -26,8 +28,9 @@ class AddRoleAndPerusahanIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+
             $table->dropColumn('role');
-            $table->dropColumn('perusahaan_id');
+            $table->dropColumn('company_id');
         });
     }
 }

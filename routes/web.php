@@ -26,8 +26,12 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
     Route::group(['middleware'=>'CheckRole:admin'],function(){
         Route::prefix('/admin')->name('admin.')->group(function(){
             Route::get('/user','AdminController@user')->name('user');
+
             Route::resource('/account','UserController');
-            Route::get('/company','AdminController@company')->name('company');
+            Route::get('/account/role/{data}','UserController@role')->name('account.role');
+
+            Route::resource('/company','CompanyController');
+
         });
     });
     Route::group(['middleware'=>'CheckRole:siswa'],function(){

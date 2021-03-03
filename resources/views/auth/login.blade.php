@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-    <br>
-    <br>
+        <br>
+        <br>
         <div class="col m8 offset-m2">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="{{ asset('template/images/gallary/18.png') }}" height="400">
+                    <img src="{{ asset('template/images/gallary/18.png') }}" height="500">
                     <span class="card-title">Sim Absensi PKL</span>
                 </div>
                 <div class="card-stacked">
@@ -21,11 +21,17 @@
                                 <i class="material-icons prefix">email</i>
                                 <input id="icon_email" type="email" name="email" class="validate">
                                 <label for="icon_email">Email</label>
+                                @error('email')
+                                <strong class="text-red">{{ $message }}</strong>
+                                @enderror
                             </div>
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">lock_outline</i>
                                 <input id="icon_password" type="password" name="password" class="validate">
                                 <label for="icon_password">Password</label>
+                                @error('password')
+                                <strong class="text-red">{{ $message }}</strong>
+                                @enderror
                             </div>
 
                     </div>

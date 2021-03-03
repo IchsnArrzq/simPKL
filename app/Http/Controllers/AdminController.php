@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Perusahaan;
+use App\Company;
 use Illuminate\Http\Request;
 use App\User;
 class AdminController extends Controller
@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function company()
     {
         return view('admin.company',[
-            'company' => Perusahaan::all()
+            'company' => Company::all()
         ]);
     }
 }

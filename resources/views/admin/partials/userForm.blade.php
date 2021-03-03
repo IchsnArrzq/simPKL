@@ -1,10 +1,12 @@
+<main id="app">
 <div class="card-panel">
+
     <h4 class="header2">New User</h4>
     <div class="row">
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="John Doe" id="name2" name="name" type="text">
+                    <input placeholder="John Doe" id="name2" value="{{ $user->name ?? ''}}" name="name" type="text">
                     <label for="first_name">Name</label>
                     @error('name')
                     <strong class="red-text">{{ $message }}</strong>
@@ -13,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input placeholder="john@domainname.com" name="email" id="email2" type="email">
+                    <input placeholder="john@domainname.com" name="email" value="{{ $user->email ?? ''}}" id="email2" type="email">
                     <label for="email">Email</label>
                     @error('email')
                     <strong class="red-text">{{ $message }}</strong>
@@ -21,13 +23,18 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s12">
-                    <input placeholder="YourPassword" id="password2" name="password" type="password">
+                <div class="input-field col s6">
+                    <input placeholder="YourPassword" id="password2" value="{{ $user->password ?? ''}}" name="password" type="password">
                     <label for="password">Password</label>
                     @error('password')
                     <strong class="red-text">{{ $message }}</strong>
                     @enderror
                 </div>
+                @unless(empty($user->name))
+                <div class="col s6">
+                    <button class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="{{ Hash::make($user->password) ?? ''}}"><i class="material-icons right">lock</i>Encrypt</button>
+                </div>
+                @endunless
             </div>
             <div class="row">
                 <div class="input-field col s12">
@@ -37,11 +44,11 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <select name="role">
+                    <select name="role" v-on:change="role">
                         <option value="" disabled selected>Choose your option</option>
-                        <option value="siswa">Siswa</option>
-                        <option value="instruktur">Instruktur</option>
-                        <option value="admin">Admin</option>
+                        <option value="Siswa">Siswa</option>
+                        <option value="PembimbingPKL">Pembimbing PKL</option>
+                        <option value="PembimbingIndustri">Pembimbing Industri</option>
                     </select>
                     <label>Role</label>
                     @error('role')
@@ -59,3 +66,5 @@
         </form>
     </div>
 </div>
+
+</main>

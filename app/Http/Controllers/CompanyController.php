@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\User;
+use App\Company;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('admin.user',[
-            'user' => User::paginate(10)
+        return view('admin.company',[
+            'company' => Company::all()
         ]);
     }
 
@@ -29,8 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create',[
-            'user' => new User()
+        //
+        return view('admin.company.create',[
+            'company' => new Company()
         ]);
     }
 
@@ -40,13 +40,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $userRequest)
+    public function store(Request $request)
     {
-        $request = $userRequest->all();
-        $request['password'] = Hash::make($request['password']);
-        User::create($request);
-        return back()->with('success','Berhasil Membuat User Baru');
-
+        //
     }
 
     /**
@@ -68,9 +64,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.user.edit',[
-            'user' => User::findOrFail($id)
-        ]);
+        //
     }
 
     /**
@@ -94,17 +88,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        User::find($id)->delete();
-        return back()->with('success','Berhasil Menghapus Row');
-    }
-    public function role($data)
-    {
-        if($data == 'all')
-        {
-            return redirect()->route('menu.admin.account.index');
-        }
-        return view('admin.user',[
-            'user' => User::where('role',$data)->get()
-        ]);
     }
 }

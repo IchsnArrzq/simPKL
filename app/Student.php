@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Absen extends Model
+class Student extends Model
 {
     public function user()
     {

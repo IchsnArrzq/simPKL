@@ -33,6 +33,8 @@
     <link href="{{ asset('template/vendors/flag-icon/css/flag-icon.min.css') }}" type="text/css" rel="stylesheet">
     <!-- SweetAlert -->
     <script src="{{ asset('js/sweetalert.js') }}"></script>
+    <!-- vue js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 
 <body>

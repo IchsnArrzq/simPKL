@@ -40,27 +40,27 @@
         <li class="no-padding">
             <ul class="collapsible" data-collapsible="accordion">
                 @if(auth()->user()->role == 'admin')
-                <li class="bold">
+                <li class="bold{{ request()->is('home') ? ' active' : '' }}">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>
                         <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="bold">
-                    <a href="{{ route('menu.admin.user') }}" class="waves-effect waves-cyan">
+                <li class="bold{{ request()->is('menu/admin/account') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.account.index') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">account_circle</i>
                         <span class="nav-text">User Account</span>
                     </a>
                 </li>
 
-                <li class="bold">
-                    <a href="{{ route('menu.admin.company') }}" class="waves-effect waves-cyan">
+                <li class="bold{{ request()->is('menu/admin/company') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.company.index') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">location_city</i>
                         <span class="nav-text">Company Internship</span>
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->role == 'siswa')
+                @if(auth()->user()->role == 'Siswa')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>
@@ -75,7 +75,21 @@
                 </li>
 
                 @endif
-                @if(auth()->user()->role == 'instruktur')
+                @if(auth()->user()->role == 'PembimbingIndustri')
+                <li class="bold">
+                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">pie_chart_outlined</i>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">assignment</i>
+                        <span class="nav-text">Task</span>
+                    </a>
+                </li>
+                @endif
+                @if(auth()->user()->role == 'PembimbingPKL')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>

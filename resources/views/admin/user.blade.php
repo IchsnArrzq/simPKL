@@ -22,13 +22,13 @@
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
                     <ul id="dropdown1" class="dropdown-content">
-                        <li><a href="#!" class="grey-text text-darken-2">All</a>
+                        <li><a href="{{ route('menu.admin.account.role', 'all' ) }}" class="grey-text text-darken-2">All</a>
                         </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Siswa</a>
+                        <li><a href="{{ route('menu.admin.account.role', 'Siswa' ) }}" class="grey-text text-darken-2">Siswa</a>
                         </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Pembimbing</a>
+                        <li><a href="{{ route('menu.admin.account.role', 'PembimbingPKL' ) }}" class="grey-text text-darken-2">Pembimbing PKL</a>
                         </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Instruktur</a>
+                        <li><a href="{{ route('menu.admin.account.role', 'PembimbingIndustri' ) }}" class="grey-text text-darken-2">Pembimbing Industri</a>
                         </li>
                     </ul>
                 </div>
@@ -40,7 +40,7 @@
 <div class="container">
     <div class="divider"></div>
     <div id="responsive-table">
-        <h4 class="header"><a href="{{ route('menu.admin.account.create') }}" class="waves-effect waves-light btn"><i class="material-icons right">add</i> Add</a></h4>
+        <h4 class="header"><a href="{{ route('menu.admin.account.create') }}" class="waves-effect waves-light btn blue darken-2 tooltipped" data-position="top" data-tooltip="Add New User"><i class="material-icons right">add</i> Add</a></h4>
         <div class="row">
 
             <div class="col s12">
@@ -56,17 +56,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($user as $data)
+                        @forelse($user as $data)
                         <tr>
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             <td><button class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="{{ $data->password }}"><i class="material-icons right">lock</i>Encrypt</button></td>
                             <td>{{ $data->role }}</td>
-                            <td><a href="" class="waves-effect waves-light btn yellow black-text">Edit</a></td>
-                            <td><a href="" class="waves-effect waves-light btn red">Delete</a></td>
+                            <td><a href="{{ route('menu.admin.account.edit',$data->id) }}" class="waves-effect waves-light btn yellow darken-2 tooltipped" data-position="top" data-tooltip="Edit {{ $data->name }}?">Edit</a></td>
+                            <td><button onclick="deleteUser()" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->name }}?">Delete</button></td>
+                            <form method="post" id="DeleteUSer" action="{{ route('menu.admin.account.destroy',$data->id) }}">
+                                @csrf
+                                @method('delete')
+                            </form>
+                            <script>
+                                function deleteUser() {
+                                    swal({
+                                            title: "Are you sure?",
+                                            text: "Once deleted, you will not be able to recover this imaginary file!",
+                                            icon: "warning",
+                                            buttons: true,
+                                            dangerMode: true,
+                                        })
+                                        .then((willDelete) => {
+                                            if (willDelete) {
+                                                event.preventDefault();
+                                                document.getElementById('DeleteUSer').submit();
+                                            } else {
+                                                swal("okay :)");
+                                            }
+                                        });
+                                }
+                            </script>
+                            @empty
+                            <td colspan="7">
+                                <div class="card-panel gradient-45deg-red-pink gradient-shadow">
+                                    <span class="white-text">Empty <i class="material-icons left">search</i></span>
+                                </div>
+                            </td>
                         </tr>
-                        @endforeach
+                        @endforelse
                     </tbody>
                 </table>
             </div>
