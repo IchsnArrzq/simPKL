@@ -37,13 +37,12 @@
         </div>
     </div>
 </section>
-<form action="{{ route('menu.admin.company.store',$company->id) }}" method="post">
+<form action="{{ route('menu.admin.company.store') }}" method="post">
     @csrf
     <div class="row">
         <div class="col s12 m12 l12">
-            <main id="app">
-                @include('admin.partials.companyForm')
-            </main>
+            @include('admin.partials.companyForm')
+
         </div>
     </div>
 </form>

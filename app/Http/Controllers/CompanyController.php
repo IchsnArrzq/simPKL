@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Http\Requests\CompanyRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -40,9 +41,13 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         //
+        $company = $request->all();
+        $company['long_time'] = date($request->finish_date." h:m:s");
+        Company::create($company);
+        return back()->with('success','Finish Add new Company');
     }
 
     /**
@@ -64,7 +69,9 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.company.edit',[
+            'company' => Company::findOrFail($id)
+        ]);
     }
 
     /**
@@ -74,9 +81,15 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, $id)
     {
-        //
+        $company = $request->all();
+        unset($company['_token']);
+        unset($company['_method']);
+        unset($company['action']);
+        $company['long_time'] = date($request->finish_date." h:m:s");
+        Company::where('id',$id)->update($company);
+        return back()->with('success','Finish Update Company');
     }
 
     /**
@@ -88,5 +101,7 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
+        Company::findOrFail($id)->delete();
+        return back()->with('success','Finsih Delete 1 Row');
     }
 }

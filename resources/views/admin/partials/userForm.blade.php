@@ -30,14 +30,7 @@
                     <strong class="red-text">{{ $message }}</strong>
                     @enderror
                 </div>
-                @unless(empty($user->name))
-                <div class="col s6">
-                    <button class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="{{ Hash::make($user->password) ?? ''}}"><i class="material-icons right">lock</i>Encrypt</button>
-                </div>
-                @endunless
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input id="password-confirm" type="password" placeholder="ConfirmYourPassword" name="password_confirmation" required autocomplete="new-password">
                     <label for="password-confirm">{{ __('Confirm Password') }}</label>
                 </div>

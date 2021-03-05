@@ -16,8 +16,8 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->string('company');
-            $table->timestamp('start_date');
-            $table->timestamp('finish_date');
+            $table->date('start_date');
+            $table->date('finish_date');
             $table->timestamp('long_time');
             $table->timestamps();
         });

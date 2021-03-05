@@ -63,7 +63,7 @@
                             <td>{{ $data->start_date }}</td>
 
                             <td>{{ $data->finish_date }}</td>
-                            <td>{{ $data->long_time }}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->long_time)->diffForHumans() }}</td>
 
                             <td><a href="{{ route('menu.admin.company.edit',$data->id) }}" class="waves-effect waves-light btn yellow darken-2 tooltipped" data-position="top" data-tooltip="Edit {{ $data->name }}?">Edit</a></td>
                             <td><button onclick="deleteUser()" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->name }}?">Delete</button></td>

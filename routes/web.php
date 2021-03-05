@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login')->with('access','Anda Sudah Logout');
+    return view('welcome')->with('access','Anda Sudah Logout');
 });
 
 Auth::routes();
