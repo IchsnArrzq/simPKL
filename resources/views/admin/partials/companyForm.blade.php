@@ -5,10 +5,18 @@
         <div class="row">
             <form class="col s12">
                 <div class="row">
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <input placeholder="Cyberlabs" id="company" value="{{ $company->company ?? ''}}" name="company" type="text">
                         <label for="company">Company</label>
                         @error('company')
+                        <strong class="red-text">{{ $message }}</strong>
+                        @enderror
+
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Bandung" id="region" value="{{ $company->region ?? ''}}" name="region" type="text">
+                        <label for="region">Region</label>
+                        @error('region')
                         <strong class="red-text">{{ $message }}</strong>
                         @enderror
                     </div>

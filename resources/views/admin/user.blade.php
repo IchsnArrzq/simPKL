@@ -64,13 +64,13 @@
                             <td><button class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="{{ $data->password }}"><i class="material-icons right">lock</i>Encrypt</button></td>
                             <td>{{ $data->role }}</td>
                             <td><a href="{{ route('menu.admin.account.edit',$data->id) }}" class="waves-effect waves-light btn yellow darken-2 tooltipped" data-position="top" data-tooltip="Edit {{ $data->name }}?">Edit</a></td>
-                            <td><button onclick="deleteUser()" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->name }}?">Delete</button></td>
-                            <form method="post" id="DeleteUSer" action="{{ route('menu.admin.account.destroy',$data->id) }}">
+                            <td><button onclick="deleteUser('{{$data->id}}')" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->name }}?">Delete</button></td>
+                            <form method="post" id="DeleteUser{{$data->id}}" action="{{ route('menu.admin.account.destroy', $data->id) }}">
                                 @csrf
                                 @method('delete')
                             </form>
                             <script>
-                                function deleteUser() {
+                                function deleteUser(id) {
                                     swal({
                                             title: "Are you sure?",
                                             text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -81,7 +81,7 @@
                                         .then((willDelete) => {
                                             if (willDelete) {
                                                 event.preventDefault();
-                                                document.getElementById('DeleteUSer').submit();
+                                                document.getElementById(`DeleteUser${id}`).submit();
                                             } else {
                                                 swal("okay :)");
                                             }

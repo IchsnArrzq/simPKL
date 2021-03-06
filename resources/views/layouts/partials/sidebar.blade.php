@@ -7,10 +7,17 @@
                 </div>
                 <div class="col col s8 m8 l8">
                     <ul id="profile-dropdown-nav" class="dropdown-content">
+                        @if(auth()->user()->role == 'Siswa')
+                        <li>
+                            <a href="{{ route('menu.student.profile.index') }}" class="grey-text text-darken-1">
+                                <i class="material-icons">face</i> Profile</a>
+                        </li>
+                        @elseif(auth()->user()->role == 'admin')
                         <li>
                             <a href="#" class="grey-text text-darken-1">
                                 <i class="material-icons">face</i> Profile</a>
                         </li>
+                        @endif
                         <li>
                             <a href="#" class="grey-text text-darken-1">
                                 <i class="material-icons">settings</i> Settings</a>
@@ -59,6 +66,13 @@
                         <span class="nav-text">Company Internship</span>
                     </a>
                 </li>
+
+                <li class="bold{{ request()->is('menu/admin/place/get') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.place.get') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">location_on</i>
+                        <span class="nav-text">Management Place</span>
+                    </a>
+                </li>
                 @endif
                 @if(auth()->user()->role == 'Siswa')
                 <li class="bold">
@@ -68,7 +82,7 @@
                     </a>
                 </li>
                 <li class="bold">
-                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                    <a href="" class="waves-effect waves-cyan">
                         <i class="material-icons">folder_shared</i>
                         <span class="nav-text">Absent</span>
                     </a>

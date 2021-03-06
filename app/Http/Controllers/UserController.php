@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Student;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('admin.user',[
+        return view('admin.user', [
             'user' => User::paginate(10)
         ]);
     }
@@ -29,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create',[
+        return view('admin.user.create', [
             'user' => new User()
         ]);
     }
@@ -43,10 +44,21 @@ class UserController extends Controller
     public function store(UserRequest $userRequest)
     {
         $request = $userRequest->all();
+        $nis = $request['password'];
         $request['password'] = Hash::make($request['password']);
         User::create($request);
-        return back()->with('success','Berhasil Membuat User Baru');
 
+        $students = User::where('email',$request['email'])->get();
+        foreach($students as $student){
+            $user_id = $student->id;
+        }
+        if ($request['role'] === 'Siswa') {
+            Student::create([
+                'nis' => $nis,
+                'user_id' => $user_id
+            ]);
+        }
+        return back()->with('success', 'Berhasil Membuat User Baru');
     }
 
     /**
@@ -68,7 +80,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.user.edit',[
+        return view('admin.user.edit', [
             'user' => User::findOrFail($id)
         ]);
     }
@@ -93,18 +105,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
-        User::find($id)->delete();
-        return back()->with('success','Berhasil Menghapus Row');
+        $find = User::findOrFail($id);
+        $find->student()->where('user_id',$id)->delete();
+        $find->delete();
+        return back()->with('success', 'Berhasil Menghapus Row');
     }
     public function role($data)
     {
-        if($data == 'all')
-        {
+        if ($data == 'all') {
             return redirect()->route('menu.admin.account.index');
         }
-        return view('admin.user',[
-            'user' => User::where('role',$data)->get()
+        return view('admin.user', [
+            'user' => User::where('role', $data)->get()
         ]);
     }
 }

@@ -32,11 +32,13 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
 
             Route::resource('/company','CompanyController');
 
+            Route::get('/place/get','CompanyController@getPlace')->name('place.get');
+
         });
     });
-    Route::group(['middleware'=>'CheckRole:siswa'],function(){
-        Route::prefix('/siswa')->name('siswa.')->group(function(){
-            Route::view('/dashboard','siswa.dashboard');
+    Route::group(['middleware'=>'CheckRole:Siswa'],function(){
+        Route::prefix('/student')->name('student.')->group(function(){
+            Route::resource('/profile','StudentController');
         });
     });
 });
