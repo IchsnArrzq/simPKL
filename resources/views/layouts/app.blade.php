@@ -84,7 +84,6 @@
                 <!--work collections end-->
 
                 <!-- //////////////////////////////////////////////////////////////////////////// -->
-
                 <!--end container-->
             </section>
             <!-- END CONTENT -->
@@ -97,7 +96,7 @@
     <!-- END MAIN -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->
     <!-- START FOOTER -->
-    <footer class="page-footer gradient-45deg-light-blue-cyan">
+    <footer class="page-footer red">
         <div class="footer-copyright">
             <div class="container">
                 <span>Copyright ©

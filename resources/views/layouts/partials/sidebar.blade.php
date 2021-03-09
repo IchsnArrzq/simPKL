@@ -1,13 +1,13 @@
 <aside id="left-sidebar-nav">
     <ul id="slide-out" class="side-nav fixed leftside-navigation">
-        <li class="user-details cyan darken-2">
+        <li class="user-details blue-grey darken-2">
             <div class="row">
                 <div class="col col s4 m4 l4">
-                    <img src="{{ asset('template/images/avatar/avatar-7.png') }}" alt="" class="circle responsive-img valign profile-image cyan">
+                    <img src="{{ asset('template/images/avatar/avatar-1.png') }}" alt="" class="circle responsive-img valign profile-image cyan">
                 </div>
                 <div class="col col s8 m8 l8">
                     <ul id="profile-dropdown-nav" class="dropdown-content">
-                        @if(auth()->user()->role == 'Siswa')
+                        @if(auth()->user()->role == 'siswa')
                         <li>
                             <a href="{{ route('menu.student.profile.index') }}" class="grey-text text-darken-1">
                                 <i class="material-icons">face</i> Profile</a>
@@ -66,15 +66,8 @@
                         <span class="nav-text">Company Internship</span>
                     </a>
                 </li>
-
-                <li class="bold{{ request()->is('menu/admin/place/get') ? ' active' : '' }}">
-                    <a href="{{ route('menu.admin.place.get') }}" class="waves-effect waves-cyan">
-                        <i class="material-icons">location_on</i>
-                        <span class="nav-text">Management Place</span>
-                    </a>
-                </li>
                 @endif
-                @if(auth()->user()->role == 'Siswa')
+                @if(auth()->user()->role == 'siswa')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>
@@ -84,12 +77,18 @@
                 <li class="bold">
                     <a href="" class="waves-effect waves-cyan">
                         <i class="material-icons">folder_shared</i>
-                        <span class="nav-text">Absent</span>
+                        <span class="nav-text">Jurnal PKL</span>
+                    </a>
+                </li>
+                <li class="bold">
+                    <a href="" class="waves-effect waves-cyan">
+                        <i class="material-icons">folder_shared</i>
+                        <span class="nav-text">Laporan PKL</span>
                     </a>
                 </li>
 
                 @endif
-                @if(auth()->user()->role == 'PembimbingIndustri')
+                @if(auth()->user()->role == 'kkk')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>
@@ -103,7 +102,7 @@
                     </a>
                 </li>
                 @endif
-                @if(auth()->user()->role == 'PembimbingPKL')
+                @if(auth()->user()->role == 'ppkl')
                 <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">pie_chart_outlined</i>

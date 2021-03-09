@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Student;
+use App\{KetuaKompetensiKeahlian, Siswa, PembimbingPkl};
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -19,7 +19,10 @@ class UserController extends Controller
     {
         //
         return view('admin.user', [
-            'user' => User::paginate(10)
+            'meanSiswa' => User::where('role', 'siswa')->get()->count(),
+            'meanPpkl' => User::where('role', 'ppkl')->get()->count(),
+            'meanKkp' => User::where('role', 'kkp')->get()->count(),
+            'user' => User::simplePaginate(10)
         ]);
     }
 
@@ -44,17 +47,35 @@ class UserController extends Controller
     public function store(UserRequest $userRequest)
     {
         $request = $userRequest->all();
-        $nis = $request['password'];
+        $no = $request['password'];
         $request['password'] = Hash::make($request['password']);
         User::create($request);
 
-        $students = User::where('email',$request['email'])->get();
-        foreach($students as $student){
-            $user_id = $student->id;
-        }
-        if ($request['role'] === 'Siswa') {
-            Student::create([
-                'nis' => $nis,
+        if ($request['role'] === 'siswa') {
+            $students = User::where('email', $request['email'])->get();
+            foreach ($students as $student) {
+                $user_id = $student->id;
+            }
+            Siswa::create([
+                'nis' => $no,
+                'user_id' => $user_id
+            ]);
+        } elseif ($request['role'] === 'ppkl') {
+            $pembimbingPkl = User::where('email', $request['email'])->get();
+            foreach ($pembimbingPkl as $data) {
+                $user_id = $data->id;
+            }
+            PembimbingPkl::create([
+                'nppkl' => $no,
+                'user_id' => $user_id
+            ]);
+        } elseif ($request['role'] === 'kkk') {
+            $ketua = User::where('email', $request['email'])->get();
+            foreach ($ketua as $data) {
+                $user_id = $data->id;
+            }
+            KetuaKompetensiKeahlian::create([
+                'nkkk' => $no,
                 'user_id' => $user_id
             ]);
         }
@@ -94,7 +115,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        unset($data['action']);
+        unset($data['password_confirmation']);
+        if($data['password'] === ""){
+            unset($data['password']);
+        }else{
+            $data['password'] = Hash::make($data['password']);
+        }
+        User::where('id',$id)->update($data);
+        return back()->with('success','Berhasil Mengupdate User');
     }
 
     /**
@@ -106,7 +138,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         $find = User::findOrFail($id);
-        $find->student()->where('user_id',$id)->delete();
+        if($find->role == 'siswa'){
+            $find->siswa()->where('user_id', $id)->delete();
+        }elseif($find->role == 'ppkl'){
+            $find->pembimbing_pkl()->where('user_id', $id)->delete();
+        }elseif($find->role == 'kkk'){
+            $find->ketua_kompetensi_keahlian()->where('user_id', $id)->delete();
+        }
         $find->delete();
         return back()->with('success', 'Berhasil Menghapus Row');
     }
@@ -116,7 +154,10 @@ class UserController extends Controller
             return redirect()->route('menu.admin.account.index');
         }
         return view('admin.user', [
-            'user' => User::where('role', $data)->get()
+            'meanSiswa' => User::where('role', 'siswa')->get()->count(),
+            'meanPpkl' => User::where('role', 'ppkl')->get()->count(),
+            'meanKkp' => User::where('role', 'kkp')->get()->count(),
+            'user' => User::where('role', $data)->simplePaginate(10)
         ]);
     }
 }

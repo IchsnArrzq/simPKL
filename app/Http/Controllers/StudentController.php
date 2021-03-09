@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
-
+use App\Siswa;
 class StudentController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return view('siswa.profile.index',[
+            'student' => Siswa::find(auth()->user()->id)
+        ]);
     }
 
     /**
@@ -66,9 +69,14 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StudentRequest $studentRequest, $id)
     {
-        //
+        $request = $studentRequest->all();
+        unset($request['_token']);
+        unset($request['_method']);
+        unset($request['action']);
+        Siswa::where('id',$id)->update($request);
+        return back()->with('success','Success Update Profile');
     }
 
     /**

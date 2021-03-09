@@ -45,12 +45,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Absent::class);
     }
-    public function student()
-    {
-        return $this->hasMany(Student::class);
-    }
     public function raport()
     {
         return $this->hasMany(Raport::class);
+    }
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
+    public function ketua_kompetensi_keahlian()
+    {
+        return $this->hasMany(KetuaKompetensiKeahlian::class);
+    }
+    public function pembimbing_pkl()
+    {
+        return $this->hasMany(PembimbingPkl::class);
     }
 }

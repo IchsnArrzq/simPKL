@@ -1,5 +1,5 @@
 <div class="navbar-fixed">
-    <nav class="navbar-color gradient-45deg-purple-amber">
+    <nav class="navbar-color red">
         <div class="nav-wrapper">
             <ul class="left">
                 <li>

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class KetuaKompetensiKeahlian extends Model
 {
-    protected $fillable = ['nis','name','class','rayon','user_id'];
+    protected $fillable = ['nkkk','nama','jurusan','user_id'];
     public function user()
     {
         return $this->belongsTo(User::class);

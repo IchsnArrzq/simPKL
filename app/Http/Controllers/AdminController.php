@@ -10,7 +10,8 @@ class AdminController extends Controller
     public function user()
     {
         return view('admin.user',[
-            'user' => User::all()
+            'meanSiswa' => User::where('role','siswa')->get(),
+            'user' => User::all(),
         ]);
     }
     public function company()

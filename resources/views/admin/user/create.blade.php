@@ -15,23 +15,6 @@
                         <li class="active">{{ request()->path() }}</li>
                     </ol>
                 </div>
-                <div class="col s2 m6 l6">
-                    <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right" href="#!" data-activates="dropdown1">
-                        <i class="material-icons hide-on-med-and-up">settings</i>
-                        <span class="hide-on-small-onl">Settings</span>
-                        <i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                    <ul id="dropdown1" class="dropdown-content">
-                        <li><a href="#!" class="grey-text text-darken-2">All</a>
-                        </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Siswa</a>
-                        </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Pembimbing</a>
-                        </li>
-                        <li><a href="#!" class="grey-text text-darken-2">Instruktur</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

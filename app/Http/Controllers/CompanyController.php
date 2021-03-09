@@ -111,4 +111,10 @@ class CompanyController extends Controller
             'company' => Company::all()
         ]);
     }
+    public function setPlace($id)
+    {
+        return view('admin.company.setPlace',[
+            'company' => Company::findOrFail($id)
+        ]);
+    }
 }
