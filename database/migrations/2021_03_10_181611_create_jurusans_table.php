@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKetuaKompetensiKeahliansTable extends Migration
+class CreateJurusansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateKetuaKompetensiKeahliansTable extends Migration
      */
     public function up()
     {
-        Schema::create('ketua_kompetensi_keahlians', function (Blueprint $table) {
+        Schema::create('jurusans', function (Blueprint $table) {
             $table->id();
-            $table->string('nkkk');
-            $table->string('nama')->nullable();
-            $table->string('jurusan')->nullable();
-            $table->foreignId('user_id')->constrained('users');
+            $table->string('nama');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateKetuaKompetensiKeahliansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ketua_kompetensi_keahlians');
+        Schema::dropIfExists('jurusans');
     }
 }

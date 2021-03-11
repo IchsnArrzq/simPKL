@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbsentsTable extends Migration
+class CreateRapotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateAbsentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('absents', function (Blueprint $table) {
+        Schema::create('rapots', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('checkIn');
-            $table->time('checkOut');
-            $table->text('description');
-            $table->string('activity');
-            $table->integer('student_id');
-
+            $table->integer('kedisiplinan');
+            $table->integer('kompetensi');
+            $table->integer('sikap');
+            $table->foreignId('siswa_id')->constrained('siswas');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateAbsentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absents');
+        Schema::dropIfExists('rapots');
     }
 }

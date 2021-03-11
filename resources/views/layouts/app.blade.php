@@ -96,7 +96,7 @@
     <!-- END MAIN -->
     <!-- //////////////////////////////////////////////////////////////////////////// -->
     <!-- START FOOTER -->
-    <footer class="page-footer red">
+    <footer class="page-footer gradient-45deg-indigo-blue">
         <div class="footer-copyright">
             <div class="container">
                 <span>Copyright ©

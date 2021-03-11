@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePembimbingPklsTable extends Migration
+class CreateKakomlisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatePembimbingPklsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembimbing_pkls', function (Blueprint $table) {
+        Schema::create('kakomlis', function (Blueprint $table) {
             $table->id();
-            $table->string('nppkl');
+            $table->string('no_kakomli');
             $table->string('nama')->nullable();
-            $table->string('jurusan')->nullable();
+            $table->unsignedInteger('jurusan_id');
             $table->foreignId('user_id')->constrained('users');
+            // $table->foreign('jurusan_id')->references('id')->on('jurusans');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreatePembimbingPklsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembimbing_pkls');
+        Schema::dropIfExists('kakomlis');
     }
 }

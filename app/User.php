@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'company_id'
+        'name', 'email', 'password', 'role'
     ];
 
     /**
@@ -37,28 +37,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-    public function absent()
-    {
-        return $this->hasMany(Absent::class);
-    }
-    public function raport()
-    {
-        return $this->hasMany(Raport::class);
-    }
     public function siswa()
     {
         return $this->hasMany(Siswa::class);
     }
-    public function ketua_kompetensi_keahlian()
+    public function kakomli()
     {
-        return $this->hasMany(KetuaKompetensiKeahlian::class);
+        return $this->hasMany(Kakomli::class);
     }
-    public function pembimbing_pkl()
+    public function pembimbing()
     {
-        return $this->hasMany(PembimbingPkl::class);
+        return $this->hasMany(Pembimbing::class);
     }
 }

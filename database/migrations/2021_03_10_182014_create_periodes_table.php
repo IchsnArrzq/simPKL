@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRaportsTable extends Migration
+class CreatePeriodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateRaportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('raports', function (Blueprint $table) {
+        Schema::create('periodes', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
-            $table->integer('score');
-            $table->integer('student_id');
+            $table->date('mulai');
+            $table->date('selesai');
+            $table->timestamp('lama_waktu');
+            $table->string('status');
+            $table->foreignId('pembimbing_id')->constrained('pembimbings');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateRaportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('raports');
+        Schema::dropIfExists('periodes');
     }
 }

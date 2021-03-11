@@ -9,11 +9,13 @@
         <div class="container">
             <div class="row">
                 <div class="col s10 m6 l6">
-                    <h5 class="breadcrumbs-title">User</h5>
-                    <ol class="breadcrumbs">
-                        <li><a href="{{ route('home') }}">Dashboard</a></li>
-                        <li class="active">User</li>
-                    </ol>
+                    <blockquote>
+                        <h5 class="breadcrumbs-title">Table User</h5>
+                        <ol class="breadcrumbs">
+                            <li><a href="{{ route('home') }}">Dashboard</a></li>
+                            <li class="active">User</li>
+                        </ol>
+                    </blockquote>
                 </div>
                 <div class="col s2 m6 l6">
 
@@ -27,13 +29,12 @@
     <div class="divider"></div>
     <div id="responsive-table">
         <div class="row">
-            <div class="col s7">
-                <div class="card">
+            <div class="col s12 m7 l7">
+                <div class="card hoverable">
                     <div class="card-action">
                         <a href="{{ route('menu.admin.account.create') }}" class="waves-effect waves-light btn blue darken-2 tooltipped" data-position="top" data-tooltip="Add New User"><i class="material-icons right">add</i></a>
-                        <a class="btn dropdown-settings waves-effect waves-light grey darken-2 breadcrumbs-btn" href="#!" data-activates="dropdown1">
-                            <i class="material-icons hide-on-med-and-up">settings</i>
-                            <!-- <span class="hide-on-small-onl">Settings</span> -->
+                        <a class="btn dropdown-settings waves-effect waves-light grey darken-2 breadcrumbs-btn right" href="#!" data-activates="dropdown1">
+                            <span class="hide-on-small-onl"></span>
                             <i class="material-icons right">settings</i>
                         </a>
                         <ul id="dropdown1" class="dropdown-content">
@@ -48,7 +49,7 @@
                         </ul>
                     </div>
                     <div class="card-content">
-                        <table class="responsive-table highlight">
+                        <table class="responsive-table highlight centered bordered">
                             <thead class="">
                                 <tr>
                                     <th>#</th>
@@ -58,9 +59,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @php
+                                @php
                                 $no = 1;
-                            @endphp
+                                @endphp
                                 @forelse($user as $data)
                                 <tr>
                                     <td>{{ $no++ }}</td>
@@ -107,14 +108,41 @@
                     </div>
                 </div>
             </div>
-            <div class="col s5">
-                <ul id="issues-collection" class="collection z-depth-1">
+            <div class="col s12 m5 l5">
+                <ul class="collapsible popout">
+                    <li>
+                        <div class="collapsible-header">
+
+                            <h4>Role User</h4>
+
+                        </div>
+                        <div class="collapsible-body">
+                            <h5>Description</h5>
+                            <p>kkk (Ketua Kompetensi Keahlian)</p>
+                            <p>ppkl (Pembimbing PKL)</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person</i>Siswa</div>
+                        <div class="collapsible-body"><span>Siswa Yang Sedang Menjalankan PKL</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person</i>Ketua Komptensi Keahlian</div>
+                        <div class="collapsible-body"><span>Ketua Jurusan</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">person</i>Pembimbing PKL</div>
+                        <div class="collapsible-body"><span>Guru / Pembimbing di PKL</span></div>
+                    </li>
+                </ul>
+                <!-- <ul id="issues-collection" class="collection z-depth-1">
                     <li class="collection-item avatar">
                         <i class="material-icons red accent-2 circle">card_travel</i>
                         <h5 class="collection-header m-0">Role User</h5>
                         <p>Level</p>
                     </li>
-                    <li class="collection-item">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle red white-text">person</i>
                         <div class="row">
                             <div class="col s7">
                                 <p class="collections-title">
@@ -131,7 +159,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="collection-item">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle blue white-text">person</i>
                         <div class="row">
                             <div class="col s7">
                                 <p class="collections-title">
@@ -148,7 +177,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="collection-item">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle green white-text">person</i>
                         <div class="row">
                             <div class="col s7">
                                 <p class="collections-title">
@@ -165,7 +195,7 @@
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </div>
     </div>

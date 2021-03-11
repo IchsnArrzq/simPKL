@@ -1,5 +1,16 @@
 <div class="navbar-fixed">
-    <nav class="navbar-color red">
+    @if(auth()->user()->role == 'admin')
+    <nav class="navbar-color gradient-45deg-indigo-blue">
+    @endif
+    @if(auth()->user()->role == 'siswa')
+    <nav class="navbar-color gradient-45deg-purple-deep-orange">
+    @endif
+    @if(auth()->user()->role == 'kkk')
+    <nav class="navbar-color gradient-45deg-purple-deep-purple">
+    @endif
+    @if(auth()->user()->role == 'ppkl')
+    <nav class="navbar-color gradient-45deg-green-teal">
+    @endif
         <div class="nav-wrapper">
             <ul class="left">
                 <li>
