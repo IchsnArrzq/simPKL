@@ -18,8 +18,8 @@ class CreatePembimbingsTable extends Migration
             $table->string('no_pembimbing');
             $table->string('nama')->nullable();
             $table->string('perusahaan')->nullable();
-            $table->unsignedInteger('jurusan_id');
-            // $table->foreignId('user_id')->constrained('users');
+            $table->unsignedInteger('jurusan_id')->nullable();
+            $table->foreignId('user_id')->constrained('users');
             // $table->foreign('jurusan_id')->references('id')->on('jurusans');
             $table->timestamps();
         });

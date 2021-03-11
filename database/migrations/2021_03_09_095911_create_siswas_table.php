@@ -19,10 +19,10 @@ class CreateSiswasTable extends Migration
             $table->string('nisn')->nullable();
             $table->string('nama')->nullable();
             $table->date('ttl')->nullable();
-            $table->unsignedInteger('jurusan_id');
-            $table->unsignedInteger('periode_id');
-            $table->unsignedInteger('pembimbing_id');
-            $table->unsignedInteger('kakomli_id');
+            $table->unsignedInteger('jurusan_id')->nullable();
+            $table->unsignedInteger('periode_id')->nullable();
+            $table->unsignedInteger('pembimbing_id')->nullable();
+            $table->unsignedInteger('kakomli_id')->nullable();
             $table->foreignId('user_id')->constrained('users');
 
             // $table->foreign('jurusan_id')->references('id')->on('jurusans');

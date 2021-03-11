@@ -8,7 +8,7 @@ class Pembimbing extends Model
 {
     //
     protected $fillable = [
-        'nippkl',
+        'no_pembimbing',
         'nama',
         'perusahan',
         'jurusan_id',

@@ -17,7 +17,7 @@ class CreateKakomlisTable extends Migration
             $table->id();
             $table->string('no_kakomli');
             $table->string('nama')->nullable();
-            $table->unsignedInteger('jurusan_id');
+            $table->unsignedInteger('jurusan_id')->nullable();
             $table->foreignId('user_id')->constrained('users');
             // $table->foreign('jurusan_id')->references('id')->on('jurusans');
             $table->timestamps();

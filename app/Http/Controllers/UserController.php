@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\{KetuaKompetensiKeahlian, Siswa, PembimbingPkl};
+use App\{Kakomli, Siswa, Pembimbing};
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -65,8 +65,8 @@ class UserController extends Controller
             foreach ($pembimbingPkl as $data) {
                 $user_id = $data->id;
             }
-            PembimbingPkl::create([
-                'nppkl' => $no,
+            Pembimbing::create([
+                'no_pembimbing' => $no,
                 'user_id' => $user_id
             ]);
         } elseif ($request['role'] === 'kkk') {
@@ -74,8 +74,8 @@ class UserController extends Controller
             foreach ($ketua as $data) {
                 $user_id = $data->id;
             }
-            KetuaKompetensiKeahlian::create([
-                'nkkk' => $no,
+            Kakomli::create([
+                'no_kakomli' => $no,
                 'user_id' => $user_id
             ]);
         }
@@ -120,13 +120,13 @@ class UserController extends Controller
         unset($data['_method']);
         unset($data['action']);
         unset($data['password_confirmation']);
-        if($data['password'] === ""){
+        if ($data['password'] === "") {
             unset($data['password']);
-        }else{
+        } else {
             $data['password'] = Hash::make($data['password']);
         }
-        User::where('id',$id)->update($data);
-        return back()->with('success','Berhasil Mengupdate User');
+        User::where('id', $id)->update($data);
+        return back()->with('success', 'Berhasil Mengupdate User');
     }
 
     /**
@@ -138,12 +138,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         $find = User::findOrFail($id);
-        if($find->role == 'siswa'){
+        if ($find->role == 'siswa') {
             $find->siswa()->where('user_id', $id)->delete();
-        }elseif($find->role == 'ppkl'){
-            $find->pembimbing_pkl()->where('user_id', $id)->delete();
-        }elseif($find->role == 'kkk'){
-            $find->ketua_kompetensi_keahlian()->where('user_id', $id)->delete();
+        } elseif ($find->role == 'ppkl') {
+            $find->pembimbing()->where('user_id', $id)->delete();
+        } elseif ($find->role == 'kkk') {
+            $find->kakomli()->where('user_id', $id)->delete();
         }
         $find->delete();
         return back()->with('success', 'Berhasil Menghapus Row');
