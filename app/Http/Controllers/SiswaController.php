@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\SiswaRequest;
+use App\Jurusan;
 use App\Siswa;
-class StudentController extends Controller
+class SiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,8 @@ class StudentController extends Controller
     public function index()
     {
         return view('siswa.profile.index',[
-            'student' => Siswa::find(auth()->user()->id)
+            'siswa' => Siswa::find(auth()->user()->id),
+            'jurusan' => Jurusan::all()
         ]);
     }
 
@@ -69,9 +71,9 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StudentRequest $studentRequest, $id)
+    public function update(Request $request, $id)
     {
-        $request = $studentRequest->all();
+        $request = $request->all();
         unset($request['_token']);
         unset($request['_method']);
         unset($request['action']);

@@ -27,7 +27,7 @@
     <div class="row">
         <div class="col s8">
             <div class="card">
-                <form action="{{ route('menu.student.profile.update', $student->id) }}" method="post">
+                <form action="{{ route('menu.siswa.profile.update', $siswa->id) }}" method="post">
                     @csrf
                     @method('put')
                     <div class="card-content">
@@ -35,15 +35,11 @@
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix">assignment_ind</i>
-                                    <select name="jurusan" id="">
-                                        <option value="{{ $student->jurusan }}">{{ $student->jurusan }}</option>
-                                        <option value="RPL">RPL</option>
-                                        <option value="TKJ">TKJ</option>
-                                        <option value="MMD">MMD</option>
-                                        <option value="BDP">BDP</option>
-                                        <option value="OTKP">OTKP</option>
-                                        <option value="HTL">HTL</option>
-                                        <option value="TBG">TBG</option>
+                                    <select name="jurusan_id" id="">
+                                        <option value="{{ $siswa->jurusan }}">{{ $siswa->jurusan->nama }}</option>
+                                        @foreach($jurusan as $data)
+                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                        @endforeach
                                     </select>
                                     <label for="first_name"></label>
                                     @error('jurusan')
@@ -54,7 +50,7 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">account_circle</i>
-                                    <input placeholder="John Doe" id="name2" value="{{ $student->nama ?? ''}}" name="nama" type="text">
+                                    <input placeholder="John Doe" id="name2" value="{{ $siswa->nama ?? ''}}" name="nama" type="text">
                                     <label for="first_name">Name</label>
                                     @error('nama')
                                     <strong class="red-text">{{ $message }}</strong>
@@ -64,7 +60,7 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="date" value="{{ $student->ttl ?? '' }}" name="ttl" id="start_date2">
+                                    <input type="date" value="{{ $siswa->ttl ?? '' }}" name="ttl" id="start_date2">
                                     @error('ttl')
                                     <strong class="red-text">{{ $message }}</strong>
                                     @enderror
@@ -73,7 +69,7 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">dialpad</i>
-                                    <input placeholder="11806634" id="nis" value="{{ $student->nis ?? ''}}" name="nis" type="text">
+                                    <input placeholder="11806634" id="nis" value="{{ $siswa->nis ?? ''}}" name="nis" type="text">
                                     <label for="first_name">NIS</label>
                                     @error('nis')
                                     <strong class="red-text">{{ $message }}</strong>
@@ -83,7 +79,7 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">dialpad</i>
-                                    <input placeholder="118072312786" id="name2" value="{{ $student->nisn ?? ''}}" name="nisn" type="text">
+                                    <input placeholder="118072312786" id="name2" value="{{ $siswa->nisn ?? ''}}" name="nisn" type="text">
                                     <label for="first_name">NISN</label>
                                     @error('nisn')
                                     <strong class="red-text">{{ $message }}</strong>
@@ -120,7 +116,7 @@
                         <i class="material-icons">perm_identity</i> {{ auth()->user()->role }}
                     </p>
                     <p>
-                        <i class="material-icons">person_pin</i> {{ $student->nis }}
+                        <i class="material-icons">person_pin</i> {{ $siswa->nis }}
                     </p>
                     <p>
                         <i class="material-icons">email</i> {{ auth()->user()->email }}
@@ -132,21 +128,21 @@
                     </span>
                     <p>Here is some more information about this card.</p>
                     <p>
-                        <i class="material-icons">perm_identity</i> {{ $student->jurusan }}
+                        <i class="material-icons">perm_identity</i> {{ $siswa->jurusan->nama }}
                     </p>
                     <p>
-                        <i class="material-icons">person_pin</i> {{ $student->nisn }}
+                        <i class="material-icons">person_pin</i> {{ $siswa->nisn }}
                     </p>
                     <p>
                         <i class="material-icons">email</i> {{ auth()->user()->email }}
                     </p>
                     <p>
-                        <i class="material-icons">cake</i> {{ $student->ttl }}
+                        <i class="material-icons">cake</i> {{ $siswa->ttl }}
                     </p>
                     <p>
                     </p>
                     <p>
-                        <i class="material-icons">airplanemode_active</i> {{ $student->status }}
+                        <i class="material-icons">airplanemode_active</i> {{ $siswa->status }}
                     </p>
                     <p>
                     </p>

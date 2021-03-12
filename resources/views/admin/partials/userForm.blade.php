@@ -3,7 +3,7 @@
 
         <div class="card hoverable">
             <div class="card-action">
-            <a href="{{ route('menu.admin.account.index') }}">
+            <a href="{{ route('menu.admin.user.index') }}">
                 <button class="btn waves-effect waves-light blue darken-2" type="button" name="action">
                     <i class="material-icons right">keyboard_return</i>
                 </button>

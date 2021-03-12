@@ -31,17 +31,17 @@
                         <span class="nav-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="bold{{ request()->is('menu/admin/account') ? ' active' : '' }}">
-                    <a href="{{ route('menu.admin.account.index') }}" class="waves-effect waves-cyan">
+                <li class="bold{{ request()->is('menu/admin/user') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.user.index') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">account_circle</i>
-                        <span class="nav-text">User Account</span>
+                        <span class="nav-text">Kelola User</span>
                     </a>
                 </li>
 
-                <li class="bold{{ request()->is('menu/admin/company') ? ' active' : '' }}">
-                    <a href="{{ route('menu.admin.company.index') }}" class="waves-effect waves-cyan">
+                <li class="bold{{ request()->is('menu/admin/perusahaan') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.perusahaan.index') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">location_city</i>
-                        <span class="nav-text">Company Internship</span>
+                        <span class="nav-text">Perusahan Magang</span>
                     </a>
                 </li>
                 @endif

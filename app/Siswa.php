@@ -26,7 +26,7 @@ class Siswa extends Model
     }
     public function jurusan()
     {
-        return $this->belongsTo(Jurusanu::class);
+        return $this->belongsTo(Jurusan::class);
     }
     public function pembimbing()
     {

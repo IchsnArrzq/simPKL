@@ -10,7 +10,7 @@ class Pembimbing extends Model
     protected $fillable = [
         'no_pembimbing',
         'nama',
-        'perusahan',
+        'perusahan_id',
         'jurusan_id',
         'user_id'
     ];
@@ -26,5 +26,9 @@ class Pembimbing extends Model
     public function periode()
     {
         return $this->hasMany(Periode::class);
+    }
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class);
     }
 }

@@ -17,9 +17,6 @@ class CreatePerusahaansTable extends Migration
             $table->id();
             $table->string('perusahaan');
             $table->string('kota');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->timestamp('lama_waktu');
             $table->timestamps();
         });
     }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use App\Http\Requests\CompanyRequest;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\PerusahaanRequest;
+use App\Perusahaan;
+use Carbon\Carbon;
 
-class CompanyController extends Controller
+class PerusahaanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        return view('admin.company',[
-            'company' => Company::all()
+        return view('admin.perusahaan', [
+            'perusahaan' => Perusahaan::all()
         ]);
     }
 
@@ -30,8 +31,8 @@ class CompanyController extends Controller
     public function create()
     {
         //
-        return view('admin.company.create',[
-            'company' => new Company()
+        return view('admin.perusahaan.create', [
+            'perusahaan' => new Perusahaan()
         ]);
     }
 
@@ -41,13 +42,12 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRequest $request)
+    public function store(PerusahaanRequest $request)
     {
         //
-        $company = $request->all();
-        $company['long_time'] = date($request->finish_date." h:m:s");
-        Company::create($company);
-        return back()->with('success','Finish Add new Company');
+        $perusahaan = $request->all();
+        Perusahaan::create($perusahaan);
+        return back()->with('success', 'Finish Add new perusahaan');
     }
 
     /**
@@ -69,8 +69,8 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.company.edit',[
-            'company' => Company::findOrFail($id)
+        return view('admin.perusahaan.edit', [
+            'perusahaan' => Perusahaan::findOrFail($id)
         ]);
     }
 
@@ -81,15 +81,14 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyRequest $request, $id)
+    public function update(PerusahaanRequest $request, $id)
     {
-        $company = $request->all();
-        unset($company['_token']);
-        unset($company['_method']);
-        unset($company['action']);
-        $company['long_time'] = date($request->finish_date." h:m:s");
-        Company::where('id',$id)->update($company);
-        return back()->with('success','Finish Update Company');
+        $perusahaan = $request->all();
+        unset($perusahaan['_token']);
+        unset($perusahaan['_method']);
+        unset($perusahaan['action']);
+        Perusahaan::where('id', $id)->update($perusahaan);
+        return back()->with('success', 'Finish Update perusahaan');
     }
 
     /**
@@ -101,20 +100,20 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         //
-        Company::findOrFail($id)->delete();
-        return back()->with('success','Finsih Delete 1 Row');
+        Perusahaan::findOrFail($id)->delete();
+        return back()->with('success', 'Finsih Delete 1 Row');
     }
 
     public function getPlace()
     {
-        return view('admin.company.getPlace',[
-            'company' => Company::all()
+        return view('admin.perusahaan.getPlace', [
+            'perusahaan' => Perusahaan::all()
         ]);
     }
     public function setPlace($id)
     {
-        return view('admin.company.setPlace',[
-            'company' => Company::findOrFail($id)
+        return view('admin.perusahaan.setPlace', [
+            'perusahaan' => Perusahaan::findOrFail($id)
         ]);
     }
 }

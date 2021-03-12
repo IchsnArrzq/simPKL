@@ -32,19 +32,19 @@
             <div class="col s12 m7 l7">
                 <div class="card hoverable">
                     <div class="card-action">
-                        <a href="{{ route('menu.admin.account.create') }}" class="waves-effect waves-light btn blue darken-2 tooltipped" data-position="top" data-tooltip="Add New User"><i class="material-icons right">add</i></a>
+                        <a href="{{ route('menu.admin.user.create') }}" class="waves-effect waves-light btn blue darken-2 tooltipped" data-position="top" data-tooltip="Add New User"><i class="material-icons right">add</i></a>
                         <a class="btn dropdown-settings waves-effect waves-light grey darken-2 breadcrumbs-btn right" href="#!" data-activates="dropdown1">
                             <span class="hide-on-small-onl"></span>
                             <i class="material-icons right">settings</i>
                         </a>
                         <ul id="dropdown1" class="dropdown-content">
-                            <li><a href="{{ route('menu.admin.account.role', 'all' ) }}" class="grey-text text-darken-2">All</a>
+                            <li><a href="{{ route('menu.admin.user.role', 'all' ) }}" class="grey-text text-darken-2">All</a>
                             </li>
-                            <li><a href="{{ route('menu.admin.account.role', 'siswa' ) }}" class="grey-text text-darken-2">Siswa</a>
+                            <li><a href="{{ route('menu.admin.user.role', 'siswa' ) }}" class="grey-text text-darken-2">Siswa</a>
                             </li>
-                            <li><a href="{{ route('menu.admin.account.role', 'kkk' ) }}" class="grey-text text-darken-2">Ketua Kompetensi Keahlian</a>
+                            <li><a href="{{ route('menu.admin.user.role', 'kkk' ) }}" class="grey-text text-darken-2">Ketua Kompetensi Keahlian</a>
                             </li>
-                            <li><a href="{{ route('menu.admin.account.role', 'ppkl' ) }}" class="grey-text text-darken-2">Pembimbing PKL</a>
+                            <li><a href="{{ route('menu.admin.user.role', 'ppkl' ) }}" class="grey-text text-darken-2">Pembimbing PKL</a>
                             </li>
                         </ul>
                     </div>
@@ -67,9 +67,9 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $data->email }}</td>
                                     <td>{{ $data->role }}</td>
-                                    <td><a href="{{ route('menu.admin.account.edit',$data->id) }}" class="waves-effect waves-light btn yellow darken-2 tooltipped" data-position="top" data-tooltip="Edit {{ $data->name }}?"><i class="material-icons right">edit</i></a></td>
+                                    <td><a href="{{ route('menu.admin.user.edit',$data->id) }}" class="waves-effect waves-light btn yellow darken-2 tooltipped" data-position="top" data-tooltip="Edit {{ $data->name }}?"><i class="material-icons right">edit</i></a></td>
                                     <td><button onclick="deleteUser('{{$data->id}}')" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->name }}?"><i class="material-icons right">delete</i></button></td>
-                                    <form method="post" id="DeleteUser{{$data->id}}" action="{{ route('menu.admin.account.destroy', $data->id) }}">
+                                    <form method="post" id="DeleteUser{{$data->id}}" action="{{ route('menu.admin.user.destroy', $data->id) }}">
                                         @csrf
                                         @method('delete')
                                     </form>

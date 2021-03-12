@@ -17,10 +17,11 @@ class CreatePembimbingsTable extends Migration
             $table->id();
             $table->string('no_pembimbing');
             $table->string('nama')->nullable();
-            $table->string('perusahaan')->nullable();
             $table->unsignedInteger('jurusan_id')->nullable();
+            $table->unsignedInteger('perusahaan_id')->nullable();
             $table->foreignId('user_id')->constrained('users');
             // $table->foreign('jurusan_id')->references('id')->on('jurusans');
+            // $table->foreign('perusahaan_id')->references('id')->on('perusahaan');
             $table->timestamps();
         });
     }

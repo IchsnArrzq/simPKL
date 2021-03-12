@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<form action="{{ route('menu.admin.account.store') }}" method="post">
+<form action="{{ route('menu.admin.user.store') }}" method="post">
     @csrf
     <div class="row">
         <div class="col s12 m12 l12">

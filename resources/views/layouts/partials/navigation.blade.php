@@ -113,10 +113,12 @@
             </ul>
             <!-- profile-dropdown -->
             <ul id="profile-dropdown" class="dropdown-content">
+                @if(auth()->user()->role)
                 <li>
-                    <a href="#" class="grey-text text-darken-1">
+                    <a href="{{ route('menu.siswa.profile.index') }}" class="grey-text text-darken-1">
                         <i class="material-icons">face</i> Profile</a>
                 </li>
+                @endif
                 <li>
                     <a href="#" class="grey-text text-darken-1">
                         <i class="material-icons">settings</i> Settings</a>

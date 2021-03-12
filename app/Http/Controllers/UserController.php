@@ -151,7 +151,7 @@ class UserController extends Controller
     public function role($data)
     {
         if ($data == 'all') {
-            return redirect()->route('menu.admin.account.index');
+            return redirect()->route('menu.admin.user.index');
         }
         return view('admin.user', [
             'meanSiswa' => User::where('role', 'siswa')->get()->count(),

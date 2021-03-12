@@ -24,19 +24,30 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
     Route::group(['middleware'=>'CheckRole:admin'],function(){
+        //route admin
         Route::prefix('/admin')->name('admin.')->group(function(){
-            Route::get('/user','AdminController@user')->name('user');
 
-            Route::resource('/account','UserController');
-            Route::get('/account/role/{data}','UserController@role')->name('account.role');
+            Route::resource('/user','UserController');
+            Route::get('/user/role/{data}','UserController@role')->name('user.role');
 
-            Route::resource('/company','CompanyController');
+            Route::resource('/perusahaan','PerusahaanController');
 
         });
     });
     Route::group(['middleware'=>'CheckRole:siswa'],function(){
-        Route::prefix('/student')->name('student.')->group(function(){
-            Route::resource('/profile','StudentController');
+        //route siswa
+        Route::prefix('/siswa')->name('siswa.')->group(function(){
+            Route::resource('/profile','SiswaController');
         });
+    });
+    Route::group(['middleware'=> 'CheckRole:ppkl'],function(){
+        //route pembimbing
+        //controller PembimbingController
+        //middleware ppkl
+    });
+    Route::group(['middleware'=> 'CheckRole:kkk'],function(){
+        //route kakomli
+        //controller KakomliController
+        //middleware kkk
     });
 });

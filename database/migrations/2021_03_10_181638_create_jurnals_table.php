@@ -17,8 +17,8 @@ class CreateJurnalsTable extends Migration
             $table->id();
             $table->string('divisi');
             $table->date('tanggal');
-            $table->timestamp('mulai');
-            $table->timestamp('selesai');
+            $table->time('mulai');
+            $table->time('selesai');
             $table->text('kegiatan');
             $table->text('hasil');
             $table->text('keterangan');

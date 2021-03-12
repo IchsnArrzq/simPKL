@@ -20,7 +20,7 @@
         </div>
     </div>
 </section>
-<form action="{{ route('menu.admin.account.update',$user->id) }}" method="post">
+<form action="{{ route('menu.admin.user.update',$user->id) }}" method="post">
     @csrf
     @method('PUT')
     <div class="row">
