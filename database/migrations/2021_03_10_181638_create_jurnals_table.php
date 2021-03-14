@@ -22,8 +22,8 @@ class CreateJurnalsTable extends Migration
             $table->text('kegiatan');
             $table->text('hasil');
             $table->text('keterangan');
-            $table->foreignId('jurusan_id')->constrained('jurusans');
-
+            $table->foreignId('siswa_id')->constrained('siswas');
+            $table->unsignedInteger('jurusan_id');
             $table->timestamps();
         });
     }

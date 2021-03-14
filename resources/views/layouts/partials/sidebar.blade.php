@@ -44,6 +44,13 @@
                         <span class="nav-text">Perusahan Magang</span>
                     </a>
                 </li>
+
+                <li class="bold{{ request()->is('menu/admin/jurusan') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.jurusan.index') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">layers</i>
+                        <span class="nav-text">Jurusan</span>
+                    </a>
+                </li>
                 @endif
                 @if(auth()->user()->role == 'siswa')
                 <li class="bold">
@@ -53,14 +60,14 @@
                     </a>
                 </li>
                 <li class="bold">
-                    <a href="" class="waves-effect waves-cyan">
+                    <a href="{{ route('menu.siswa.jurnal.get') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">folder_shared</i>
                         <span class="nav-text">Jurnal PKL</span>
                     </a>
                 </li>
                 <li class="bold">
                     <a href="" class="waves-effect waves-cyan">
-                        <i class="material-icons">folder_shared</i>
+                        <i class="material-icons">book</i>
                         <span class="nav-text">Laporan PKL</span>
                     </a>
                 </li>

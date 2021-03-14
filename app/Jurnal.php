@@ -21,4 +21,8 @@ class Jurnal extends Model
     {
         return $this->belongsTo(Jurusan::class);
     }
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class);
+    }
 }

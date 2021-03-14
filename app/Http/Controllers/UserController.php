@@ -120,11 +120,12 @@ class UserController extends Controller
         unset($data['_method']);
         unset($data['action']);
         unset($data['password_confirmation']);
-        if ($data['password'] === "") {
+        if (empty($data['password'])) {
             unset($data['password']);
         } else {
             $data['password'] = Hash::make($data['password']);
         }
+        // dd($data);
         User::where('id', $id)->update($data);
         return back()->with('success', 'Berhasil Mengupdate User');
     }

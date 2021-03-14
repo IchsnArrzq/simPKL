@@ -31,13 +31,17 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
             Route::get('/user/role/{data}','UserController@role')->name('user.role');
 
             Route::resource('/perusahaan','PerusahaanController');
+            Route::resource('/jurusan','JurusanController');
 
         });
     });
     Route::group(['middleware'=>'CheckRole:siswa'],function(){
         //route siswa
+        //controller SiswaController
         Route::prefix('/siswa')->name('siswa.')->group(function(){
             Route::resource('/profile','SiswaController');
+            Route::get('/jurnal','SiswaController@getJurnal')->name('jurnal.get');
+            Route::get('/jurnal/set','SiswaController@setJurnal')->name('jurnal.set');
         });
     });
     Route::group(['middleware'=> 'CheckRole:ppkl'],function(){

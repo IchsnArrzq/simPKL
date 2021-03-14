@@ -32,17 +32,49 @@
                     @method('put')
                     <div class="card-content">
                         <div class="row">
+
+
                             <div class="col s12">
                                 <div class="input-field">
                                     <i class="material-icons prefix">assignment_ind</i>
-                                    <select name="jurusan_id" id="">
-                                        <option value="{{ $siswa->jurusan }}">{{ $siswa->jurusan->nama }}</option>
+                                    <select name="jurusan_id" id="jurusan_id">
                                         @foreach($jurusan as $data)
                                         <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="first_name"></label>
+                                    <label for="jurusan_id">Jurusan</label>
                                     @error('jurusan')
+                                    <strong class="red-text">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <select name="pembimbing_id" id="pembimbing_id">
+
+                                        @foreach($pembimbing as $data)
+                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="pembimbing_id">Pembimbing</label>
+                                    @error('pembimbing_id')
+                                    <strong class="red-text">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <select name="kakomli_id" id="kakomli_id">
+                                        @foreach($kakomli as $data)
+                                            <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="kakomli_id">Ketua Kompetensi Keahlian</label>
+                                    @error('kakomli_id')
                                     <strong class="red-text">{{ $message }}</strong>
                                     @enderror
                                 </div>
@@ -60,7 +92,8 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">date_range</i>
-                                    <input type="date" value="{{ $siswa->ttl ?? '' }}" name="ttl" id="start_date2">
+                                    <input type="date" value="{{ $siswa->ttl ?? '' }}" name="ttl" id="ttl">
+
                                     @error('ttl')
                                     <strong class="red-text">{{ $message }}</strong>
                                     @enderror
@@ -79,7 +112,7 @@
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">dialpad</i>
-                                    <input placeholder="118072312786" id="name2" value="{{ $siswa->nisn ?? ''}}" name="nisn" type="text">
+                                    <input placeholder="006634" id="name2" value="{{ $siswa->nisn ?? ''}}" name="nisn" type="text">
                                     <label for="first_name">NISN</label>
                                     @error('nisn')
                                     <strong class="red-text">{{ $message }}</strong>
@@ -87,10 +120,6 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
                     </div>
                     <div class="card-action">
                         <button class="btn waves-effect waves-light red" type="submit" name="action">Submit
@@ -128,7 +157,7 @@
                     </span>
                     <p>Here is some more information about this card.</p>
                     <p>
-                        <i class="material-icons">perm_identity</i> {{ $siswa->jurusan->nama }}
+                        <i class="material-icons">perm_identity</i> {{ $siswa->jurusan->nama ?? 'belum ada jurusan' }}
                     </p>
                     <p>
                         <i class="material-icons">person_pin</i> {{ $siswa->nisn }}

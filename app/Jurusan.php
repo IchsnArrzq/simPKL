@@ -8,7 +8,7 @@ class Jurusan extends Model
 {
     //
     protected $fillable = [
-        'name'
+        'nama'
     ];
     public function jurnal()
     {

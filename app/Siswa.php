@@ -44,4 +44,8 @@ class Siswa extends Model
     {
         return $this->hasMany(Rapot::class);
     }
+    public function jurnal()
+    {
+        return $this->hasMany(Jurnal::class);
+    }
 }
