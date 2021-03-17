@@ -66,12 +66,17 @@
                     </a>
                 </li>
                 <li class="bold">
-                    <a href="" class="waves-effect waves-cyan">
+                    <a href="{{ route('menu.siswa.laporan.get') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">book</i>
                         <span class="nav-text">Laporan PKL</span>
                     </a>
                 </li>
-
+                <li class="bold">
+                    <a href="{{ route('menu.siswa.rapot.get') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">chrome_reader_mode</i>
+                        <span class="nav-text">Rapot PKL</span>
+                    </a>
+                </li>
                 @endif
                 @if(auth()->user()->role == 'kkk')
                 <li class="bold">
@@ -81,9 +86,23 @@
                     </a>
                 </li>
                 <li class="bold">
+                    <a href="{{ route('menu.kakomli.siswa.get') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">account_circle</i>
+                        <span class="nav-text">Rekap Data Siswa</span>
+                    </a>
+                </li>
+
+                <li class="bold">
                     <a href="{{ route('home') }}" class="waves-effect waves-cyan">
-                        <i class="material-icons">assignment</i>
-                        <span class="nav-text">Task</span>
+                        <i class="material-icons">chrome_reader_mode</i>
+                        <span class="nav-text">Rekap Daftar Nilai</span>
+                    </a>
+                </li>
+
+                <li class="bold">
+                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">book</i>
+                        <span class="nav-text">Laporan</span>
                     </a>
                 </li>
                 @endif

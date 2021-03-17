@@ -113,9 +113,15 @@
             </ul>
             <!-- profile-dropdown -->
             <ul id="profile-dropdown" class="dropdown-content">
-                @if(auth()->user()->role)
+                @if(auth()->user()->role === 'siswa')
                 <li>
                     <a href="{{ route('menu.siswa.profile.index') }}" class="grey-text text-darken-1">
+                        <i class="material-icons">face</i> Profile</a>
+                </li>
+                @endif
+                @if(auth()->user()->role === 'kkk')
+                <li>
+                    <a href="{{ route('menu.kakomli.profile.index') }}" class="grey-text text-darken-1">
                         <i class="material-icons">face</i> Profile</a>
                 </li>
                 @endif

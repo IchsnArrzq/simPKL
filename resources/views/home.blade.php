@@ -67,4 +67,75 @@
     </div>
 </div>
 @endif
+@if(auth()->user()->role === 'siswa')
+<script>
+    setTimeout("time()", 1000);
+
+    function time() {
+        let date = new Date();
+        setTimeout("time()", 1000);
+        document.getElementById('dates').innerHTML = date.getDate();
+        document.getElementById('months').innerHTML = date.getMonth();
+        document.getElementById('years').innerHTML = date.getFullYear();
+        document.getElementById('hours').innerHTML = date.getHours();
+        document.getElementById('minutes').innerHTML = date.getMinutes();
+        document.getElementById('seconds').innerHTML = date.getSeconds();
+    }
+    // if(time() === countDown)
+</script>
+<div id="card-stats">
+    <div class="row mt-1">
+        <div class="col s12 m6 l12">
+            <div class="card hoverable gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1>{{ \Carbon\Carbon::parse($periode->lama_waktu ?? null)->diffForHumans() }}</h1>
+                    <p>{{ $periode->lama_waktu ?? ''}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="hours"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-purple-light-blue gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="minutes"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-purple-deep-orange gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="seconds"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="dates"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="months"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l2">
+            <div class="card hoverable gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
+                <div class="align center">
+                    <h1 id="years"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @endsection

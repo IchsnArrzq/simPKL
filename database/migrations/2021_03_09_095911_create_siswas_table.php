@@ -23,6 +23,7 @@ class CreateSiswasTable extends Migration
             $table->unsignedInteger('periode_id')->nullable();
             $table->unsignedInteger('pembimbing_id')->nullable();
             $table->unsignedInteger('kakomli_id')->nullable();
+            $table->unsignedInteger('perusahaan_id')->nullable();
             $table->foreignId('user_id')->constrained('users');
 
             // $table->foreign('jurusan_id')->references('id')->on('jurusans');

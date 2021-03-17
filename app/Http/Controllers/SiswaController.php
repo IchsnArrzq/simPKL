@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JurnalRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\SiswaRequest;
 use App\Jurusan;
 use App\Kakomli;
 use App\Pembimbing;
 use App\Jurnal;
+use App\Laporan;
 use App\Periode;
+use App\Perusahaan;
+use App\Rapot;
 use App\Siswa;
-
+use File;
 class SiswaController extends Controller
 {
     /**
@@ -24,7 +28,8 @@ class SiswaController extends Controller
             'siswa' => Siswa::find(auth()->user()->id),
             'jurusan' => Jurusan::all(),
             'pembimbing' => Pembimbing::all(),
-            'kakomli' => Kakomli::all()
+            'kakomli' => Kakomli::all(),
+            'perusahaan' => Perusahaan::all()
         ]);
     }
 
@@ -105,11 +110,58 @@ class SiswaController extends Controller
     public function getJurnal()
     {
         return view('siswa.jurnal.get',[
-            'jurnal' => Jurnal::where('siswa_id',auth()->user()->password)->get()
+            'jurnal' => Jurnal::where('siswa_id',Siswa::find(auth()->user()->id)->user_id)->get()
         ]);
     }
     public function setJurnal()
     {
         return view('siswa.jurnal.set');
+    }
+    public function storeJurnal(JurnalRequest $request)
+    {
+        $request = $request->all();
+        $siswa = Siswa::find(auth()->user()->id);
+        $request['siswa_id'] = $siswa->user_id;
+        $request['jurusan_id'] = $siswa->jurusan_id;
+        Jurnal::create($request);
+        return back()->with('success','Berhasil Membuat Jurnal');
+    }
+    public function getLaporan()
+    {
+        return view('siswa.laporan.get',[
+            'laporan' => Laporan::where('siswa_id',Siswa::find(auth()->user()->id)->user_id)->get()
+        ]);
+    }
+    public function storeLaporan(Request $request)
+    {
+        $this->validate($request,[
+            'laporan' => 'required'
+        ]);
+        $ekstensi = ['application/pdf','application/msword'];
+        $laporan = $request->file('laporan');
+        if(in_array($laporan->getMimeType(),$ekstensi)){
+            $siswa = Siswa::findOrFail(auth()->user()->id);
+            Laporan::create([
+                'laporan' => $siswa->user_id.'_'.$laporan->getClientOriginalName(),
+                'siswa_id' => $siswa->user_id
+            ]);
+            $laporan->move('laporanSiswa',$siswa->user_id.'_'.$laporan->getClientOriginalName());
+            return back()->with('success','Berhasil Upload Laporan');
+        }else{
+            return back()->with('error','Ekstensi dilarang hanya word dan pdf saja');
+        }
+    }
+    public function deleteLaporan($id)
+    {
+        $laporan = Laporan::findOrFail($id);
+        File::delete('laporanSiswa/'.$laporan->laporan);
+        $laporan->delete();
+        return back()->with('success','Berhasil Menghapus File');
+    }
+    public function getRapot()
+    {
+        return view('siswa.rapot.get',[
+            'rapot' => Rapot::where('siswa_id',Siswa::find(auth()->user()->id)->id)->get()
+        ]);
     }
 }

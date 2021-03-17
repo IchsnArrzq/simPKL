@@ -42,6 +42,11 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
             Route::resource('/profile','SiswaController');
             Route::get('/jurnal','SiswaController@getJurnal')->name('jurnal.get');
             Route::get('/jurnal/set','SiswaController@setJurnal')->name('jurnal.set');
+            Route::post('/jurnal/set/store','SiswaController@storeJurnal')->name('jurnal.store');
+            Route::get('/laporan','SiswaController@getLaporan')->name('laporan.get');
+            Route::post('/laporan','SiswaController@storeLaporan')->name('laporan.store');
+            Route::delete('/laporan/delete/{id}','SiswaController@deleteLaporan')->name('laporan.delete');
+            Route::get('/rapot','SiswaController@getRapot')->name('rapot.get');
         });
     });
     Route::group(['middleware'=> 'CheckRole:ppkl'],function(){
@@ -50,8 +55,12 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
         //middleware ppkl
     });
     Route::group(['middleware'=> 'CheckRole:kkk'],function(){
-        //route kakomli
-        //controller KakomliController
-        //middleware kkk
+        Route::prefix('/kakomli')->name('kakomli.')->group(function(){
+            Route::resource('/profile','KakomliController');
+            Route::get('siswa','KakomliController@getSiswa')->name('siswa.get');
+            Route::get('/periode/get/{id}','KakomliController@getPeriode')->name('periode.get');
+            Route::get('/pembimbing/get/{id}','KakomliController@getPembimbing')->name('pembimbing.get');
+            Route::get('/perusahaan/get/{id}','KakomliController@getPerusahaan')->name('perusahaan.get');
+        });
     });
 });

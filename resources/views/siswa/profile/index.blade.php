@@ -34,7 +34,7 @@
                         <div class="row">
 
 
-                            <div class="col s12">
+                            <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">assignment_ind</i>
                                     <select name="jurusan_id" id="jurusan_id">
@@ -48,7 +48,20 @@
                                     @enderror
                                 </div>
                             </div>
-
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <i class="material-icons prefix">assignment_ind</i>
+                                    <select name="perusahaan_id" id="perusahaan_id">
+                                        @foreach($perusahaan as $data)
+                                        <option value="{{ $data->id }}">{{ $data->perusahaan }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="perusahaan_id">perusahaan</label>
+                                    @error('perusahaan_id')
+                                    <strong class="red-text">{{ $message }}</strong>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col s6">
                                 <div class="input-field">
                                     <i class="material-icons prefix">account_circle</i>

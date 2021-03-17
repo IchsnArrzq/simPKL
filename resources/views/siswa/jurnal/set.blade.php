@@ -25,6 +25,8 @@
 </section>
 <div class="container">
     <div class="divider"></div>
+    <form action="{{ route('menu.siswa.jurnal.store') }}" method="post">
+    @csrf
     <div class="row">
         <div class="col s10">
             <div class="card hoverable">
@@ -61,7 +63,6 @@
                             <div class="input-field">
                                 <i class="material-icons prefix">access_time</i>
                                 <input type="time" name="mulai">
-                                <label for="">Mulai</label>
                                 @error('mulai')
                                 <strong class="red-text">{{ $message }}</strong>
                                 @enderror
@@ -111,9 +112,13 @@
                     </div>
                 </div>
                 <div class="card-action">
+                    <button class="btn waves-effect waves-light red" type="submit" name="action">
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    </form>
 </div>
 @endsection

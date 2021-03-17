@@ -8,3 +8,9 @@
     swal( "System", '{{ $message }}' , 'success' )
 </script>
 @endif
+
+@if($message = Session::get('error'))
+<script>
+    swal( "System", '{{ $message }}' , 'error' )
+</script>
+@endif

@@ -15,7 +15,8 @@ class Jurnal extends Model
         'kegiatan',
         'hasil',
         'keterangan',
-        'jurusan_id'
+        'jurusan_id',
+        'siswa_id'
     ];
     public function jurusan()
     {

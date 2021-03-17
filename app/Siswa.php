@@ -15,6 +15,7 @@ class Siswa extends Model
         'periode_id',
         'pembimbing_id',
         'kakomli_id',
+        'perusahaan_id',
         'user_id'
     ];
 
@@ -47,5 +48,13 @@ class Siswa extends Model
     public function jurnal()
     {
         return $this->hasMany(Jurnal::class);
+    }
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class);
+    }
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class);
     }
 }

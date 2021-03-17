@@ -15,4 +15,8 @@ class Perusahaan extends Model
     {
         return $this->hasMany(Pembimbing::class);
     }
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }
