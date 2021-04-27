@@ -44,7 +44,12 @@
                         <span class="nav-text">Perusahan Magang</span>
                     </a>
                 </li>
-
+                <li class="bold{{ request()->is('menu/admin/periode') ? ' active' : '' }}">
+                    <a href="{{ route('menu.admin.periode.index') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">event</i>
+                        <span class="nav-text">Periode</span>
+                    </a>
+                </li>
                 <li class="bold{{ request()->is('menu/admin/jurusan') ? ' active' : '' }}">
                     <a href="{{ route('menu.admin.jurusan.index') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">layers</i>
@@ -93,14 +98,14 @@
                 </li>
 
                 <li class="bold">
-                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                    <a href="{{ route('menu.kakomli.nilai.get') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">chrome_reader_mode</i>
                         <span class="nav-text">Rekap Daftar Nilai</span>
                     </a>
                 </li>
 
                 <li class="bold">
-                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
+                    <a href="{{ route('menu.kakomli.laporan.get') }}" class="waves-effect waves-cyan">
                         <i class="material-icons">book</i>
                         <span class="nav-text">Laporan</span>
                     </a>
@@ -114,9 +119,9 @@
                     </a>
                 </li>
                 <li class="bold">
-                    <a href="{{ route('home') }}" class="waves-effect waves-cyan">
-                        <i class="material-icons">assignment</i>
-                        <span class="nav-text">Task</span>
+                    <a href="{{ route('menu.pembimbing.siswa.index') }}" class="waves-effect waves-cyan">
+                        <i class="material-icons">account_circle</i>
+                        <span class="nav-text">Siswa</span>
                     </a>
                 </li>
                 @endif

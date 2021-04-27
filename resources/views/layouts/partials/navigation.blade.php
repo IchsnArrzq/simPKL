@@ -125,6 +125,12 @@
                         <i class="material-icons">face</i> Profile</a>
                 </li>
                 @endif
+                @if(auth()->user()->role === 'ppkl')
+                <li>
+                    <a href="{{ route('menu.pembimbing.profile.index') }}" class="grey-text text-darken-1">
+                        <i class="material-icons">face</i> Profile</a>
+                </li>
+                @endif
                 <li>
                     <a href="#" class="grey-text text-darken-1">
                         <i class="material-icons">settings</i> Settings</a>

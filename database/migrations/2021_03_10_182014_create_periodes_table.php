@@ -19,7 +19,6 @@ class CreatePeriodesTable extends Migration
             $table->date('selesai');
             $table->timestamp('lama_waktu');
             $table->string('status');
-            $table->foreignId('pembimbing_id')->constrained('pembimbings');
             $table->timestamps();
         });
     }

@@ -12,7 +12,8 @@ class Pembimbing extends Model
         'nama',
         'perusahan_id',
         'jurusan_id',
-        'user_id'
+        'user_id',
+        'periode_id'
     ];
     public function user()
     {
@@ -24,7 +25,7 @@ class Pembimbing extends Model
     }
     public function periode()
     {
-        return $this->hasMany(Periode::class);
+        return $this->belongsTo(Periode::class);
     }
     public function siswa()
     {
@@ -33,5 +34,9 @@ class Pembimbing extends Model
     public function perusahaan()
     {
         return $this->belongsTo(Perusahaan::class);
+    }
+    public function rapot()
+    {
+        return $this->hasMany(Rapot::class);
     }
 }

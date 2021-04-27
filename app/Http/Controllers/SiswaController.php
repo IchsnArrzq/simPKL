@@ -6,6 +6,7 @@ use App\Http\Requests\JurnalRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\SiswaRequest;
 use App\Jurusan;
+use App\User;
 use App\Kakomli;
 use App\Pembimbing;
 use App\Jurnal;
@@ -25,7 +26,7 @@ class SiswaController extends Controller
     public function index()
     {
         return view('siswa.profile.index', [
-            'siswa' => Siswa::find(auth()->user()->id),
+            'siswa' => Siswa::find(User::find(auth()->user()->id)->siswa->id),
             'jurusan' => Jurusan::all(),
             'pembimbing' => Pembimbing::all(),
             'kakomli' => Kakomli::all(),
@@ -90,9 +91,7 @@ class SiswaController extends Controller
         unset($request['_method']);
         unset($request['action']);
         $pembimbing = Pembimbing::findOrFail($request['pembimbing_id']);
-        foreach ($pembimbing->periode as $data) {
-            $request['periode_id'] = $data->id;
-        }
+        $request['periode_id'] = $pembimbing->periode_id;
         Siswa::where('id',$id)->update($request);
         return back()->with('success','Success Update Profile');
     }
@@ -110,7 +109,7 @@ class SiswaController extends Controller
     public function getJurnal()
     {
         return view('siswa.jurnal.get',[
-            'jurnal' => Jurnal::where('siswa_id',Siswa::find(auth()->user()->id)->user_id)->get()
+            'jurnal' => Jurnal::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
         ]);
     }
     public function setJurnal()
@@ -120,8 +119,8 @@ class SiswaController extends Controller
     public function storeJurnal(JurnalRequest $request)
     {
         $request = $request->all();
-        $siswa = Siswa::find(auth()->user()->id);
-        $request['siswa_id'] = $siswa->user_id;
+        $siswa = User::find(auth()->user()->id)->siswa;
+        $request['siswa_id'] = $siswa->id;
         $request['jurusan_id'] = $siswa->jurusan_id;
         Jurnal::create($request);
         return back()->with('success','Berhasil Membuat Jurnal');
@@ -129,7 +128,7 @@ class SiswaController extends Controller
     public function getLaporan()
     {
         return view('siswa.laporan.get',[
-            'laporan' => Laporan::where('siswa_id',Siswa::find(auth()->user()->id)->user_id)->get()
+            'laporan' => Laporan::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
         ]);
     }
     public function storeLaporan(Request $request)
@@ -140,12 +139,12 @@ class SiswaController extends Controller
         $ekstensi = ['application/pdf','application/msword'];
         $laporan = $request->file('laporan');
         if(in_array($laporan->getMimeType(),$ekstensi)){
-            $siswa = Siswa::findOrFail(auth()->user()->id);
+            $siswa = User::findOrFail(auth()->user()->id)->siswa;
             Laporan::create([
-                'laporan' => $siswa->user_id.'_'.$laporan->getClientOriginalName(),
-                'siswa_id' => $siswa->user_id
+                'laporan' => $siswa->id.'_'.$laporan->getClientOriginalName(),
+                'siswa_id' => $siswa->id
             ]);
-            $laporan->move('laporanSiswa',$siswa->user_id.'_'.$laporan->getClientOriginalName());
+            $laporan->move('laporanSiswa',$siswa->id.'_'.$laporan->getClientOriginalName());
             return back()->with('success','Berhasil Upload Laporan');
         }else{
             return back()->with('error','Ekstensi dilarang hanya word dan pdf saja');
@@ -161,7 +160,7 @@ class SiswaController extends Controller
     public function getRapot()
     {
         return view('siswa.rapot.get',[
-            'rapot' => Rapot::where('siswa_id',Siswa::find(auth()->user()->id)->id)->get()
+            'rapot' => Rapot::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
         ]);
     }
 }

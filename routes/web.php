@@ -32,7 +32,7 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
 
             Route::resource('/perusahaan','PerusahaanController');
             Route::resource('/jurusan','JurusanController');
-
+            Route::resource('/periode','PeriodeController');
         });
     });
     Route::group(['middleware'=>'CheckRole:siswa'],function(){
@@ -50,9 +50,17 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
         });
     });
     Route::group(['middleware'=> 'CheckRole:ppkl'],function(){
-        //route pembimbing
-        //controller PembimbingController
-        //middleware ppkl
+
+        Route::prefix('/pembimbing')->name('pembimbing.')->group(function(){
+            Route::resource('/profile','PembimbingController');
+            Route::get('siswa','PembimbingController@getSiswa')->name('siswa.index');
+            Route::get('kompetensi/{id}','PembimbingController@getKompetensi')->name('get.kompetensi');
+            Route::get('kedisiplinan/{id}','PembimbingController@getKedisiplinan')->name('get.kedisiplinan');
+            Route::get('sikap/{id}','PembimbingController@getSikap')->name('get.sikap');
+            Route::post('kompetensi/{id}','PembimbingController@setKompetensi')->name('set.kompetensi');
+            Route::post('kedisiplinan/{id}','PembimbingController@setKedisiplinan')->name('set.kedisiplinan');
+            Route::post('sikap/{id}','PembimbingController@setSikap')->name('set.sikap');
+        });
     });
     Route::group(['middleware'=> 'CheckRole:kkk'],function(){
         Route::prefix('/kakomli')->name('kakomli.')->group(function(){
@@ -61,6 +69,8 @@ Route::prefix('/menu')->name('menu.')->middleware('auth')->group(function(){
             Route::get('/periode/get/{id}','KakomliController@getPeriode')->name('periode.get');
             Route::get('/pembimbing/get/{id}','KakomliController@getPembimbing')->name('pembimbing.get');
             Route::get('/perusahaan/get/{id}','KakomliController@getPerusahaan')->name('perusahaan.get');
+            Route::get('/laporan/siswa', 'KakomliController@laporan')->name('laporan.get');
+            Route::get('/nilai/siswa','KakomliController@nilai')->name('nilai.get');
         });
     });
 });

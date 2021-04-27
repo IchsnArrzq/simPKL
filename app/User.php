@@ -39,14 +39,14 @@ class User extends Authenticatable
 
     public function siswa()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->hasOne(Siswa::class);
     }
     public function kakomli()
     {
-        return $this->hasMany(Kakomli::class);
+        return $this->hasOne(Kakomli::class);
     }
     public function pembimbing()
     {
-        return $this->hasMany(Pembimbing::class);
+        return $this->hasOne(Pembimbing::class);
     }
 }

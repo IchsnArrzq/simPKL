@@ -15,10 +15,11 @@ class CreateRapotsTable extends Migration
     {
         Schema::create('rapots', function (Blueprint $table) {
             $table->id();
-            $table->integer('kedisiplinan');
-            $table->integer('kompetensi');
-            $table->integer('sikap');
+            $table->integer('kedisiplinan')->nullable();
+            $table->integer('kompetensi')->nullable();
+            $table->integer('sikap')->nullable();
             $table->foreignId('siswa_id')->constrained('siswas');
+            $table->unsignedInteger('pembimbing_id')->nullable();
             $table->timestamps();
         });
     }

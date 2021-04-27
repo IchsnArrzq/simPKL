@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\{Kakomli, Siswa, Pembimbing};
+use App\{Kakomli, Siswa, Pembimbing, Rapot};
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -59,6 +59,10 @@ class UserController extends Controller
             Siswa::create([
                 'nis' => $no,
                 'user_id' => $user_id
+            ]);
+            $id = User::find($user_id)->siswa->id;
+            Rapot::create([
+                'siswa_id' => $id
             ]);
         } elseif ($request['role'] === 'ppkl') {
             $pembimbingPkl = User::where('email', $request['email'])->get();

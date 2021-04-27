@@ -19,7 +19,6 @@ class Siswa extends Model
         'user_id'
     ];
 
-    protected $primaryKey = 'user_id';
 
     public function user()
     {
@@ -43,7 +42,7 @@ class Siswa extends Model
     }
     public function rapot()
     {
-        return $this->hasMany(Rapot::class);
+        return $this->hasOne(Rapot::class);
     }
     public function jurnal()
     {

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Jurusan;
 use App\Kakomli;
+use App\Laporan;
 use App\Pembimbing;
 use App\Periode;
 use App\Perusahaan;
+use App\Rapot;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
@@ -135,6 +137,18 @@ class KakomliController extends Controller
             'pembimbing' => Pembimbing::all(),
             'periode' => Periode::all(),
             'perusahaan' => Perusahaan::all()
+        ]);
+    }
+    public function laporan()
+    {
+        return view('kakomli.laporan.get',[
+            'laporan' => Laporan::paginate(8)
+        ]);
+    }
+    public function nilai()
+    {
+        return view('kakomli.nilai.get',[
+            'nilai' => Rapot::all()
         ]);
     }
 }

@@ -11,12 +11,11 @@ class Periode extends Model
         'mulai',
         'selesai',
         'lama_waktu',
-        'status',
-        'pembimbing_id'
+        'status'
     ];
     public function pembimbing()
     {
-        return $this->belongsTo(Pembimbing::class);
+        return $this->hasMany(Pembimbing::class);
     }
     public function siswa()
     {
