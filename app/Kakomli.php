@@ -8,9 +8,7 @@ class Kakomli extends Model
 {
     //
     protected $fillable = [
-        'no_kakomli',
         'nama',
-        'ttl',
         'jurusan_id',
         'user_id'
     ];

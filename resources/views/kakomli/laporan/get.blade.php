@@ -50,7 +50,6 @@
                                 <td>{{ $no++ }}</td>
                                 <td><a target="_blank" class="btn waves-effect waves-light red" href="{{ asset('laporanSiswa/'.$data->laporan) }}">File</a></td>
                                 <td>{{ $data->siswa->nama }}</td>
-                                <td><button onclick="deleteLaporan('{{$data->id}}')" class="waves-effect waves-light btn red darken-2 tooltipped" data-position="top" data-tooltip="Delete {{ $data->file }}?"><i class="material-icons right">delete</i></button></td>
                                 <form method="post" id="DeleteLaporan{{$data->id}}" action="{{ route('menu.siswa.laporan.delete', $data->id) }}">
                                     @csrf
                                     @method('delete')

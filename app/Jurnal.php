@@ -15,13 +15,8 @@ class Jurnal extends Model
         'kegiatan',
         'hasil',
         'keterangan',
-        'jurusan_id',
         'siswa_id'
     ];
-    public function jurusan()
-    {
-        return $this->belongsTo(Jurusan::class);
-    }
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);

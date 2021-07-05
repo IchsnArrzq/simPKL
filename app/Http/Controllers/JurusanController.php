@@ -13,7 +13,7 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        return view('admin.jurusan',[
+        return view('admin.jurusan.index',[
             'jurusan' => Jurusan::all()
         ]);
     }

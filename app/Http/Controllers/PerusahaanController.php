@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CompanyRequest;
-use App\Http\Requests\PerusahaanRequest;
 use App\Perusahaan;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 
 class PerusahaanController extends Controller
 {
@@ -18,8 +17,8 @@ class PerusahaanController extends Controller
     public function index()
     {
         //
-        return view('admin.perusahaan', [
-            'perusahaan' => Perusahaan::all()
+        return view('admin.perusahaan.index', [
+            'perusahaan' => Perusahaan::latest()->get()
         ]);
     }
 
@@ -42,12 +41,14 @@ class PerusahaanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PerusahaanRequest $request)
+    public function store(Request $request)
     {
-        //
-        $perusahaan = $request->all();
-        Perusahaan::create($perusahaan);
-        return back()->with('success', 'Finish Add new perusahaan');
+        $this->validate($request , [
+            'nama' => 'required|string',
+            'kota' => 'required|string'
+        ]);
+        Perusahaan::create($request->all());
+        return back()->with('success', 'Berhasil Menambahkan Perusahaan');
     }
 
     /**
@@ -81,7 +82,7 @@ class PerusahaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PerusahaanRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $perusahaan = $request->all();
         unset($perusahaan['_token']);
@@ -115,5 +116,20 @@ class PerusahaanController extends Controller
         return view('admin.perusahaan.setPlace', [
             'perusahaan' => Perusahaan::findOrFail($id)
         ]);
+    }
+    public function pilih($id,$periode)
+    {
+        Perusahaan::where('id',$id)->update([
+            'periode_id' => $periode
+        ]);
+
+        return back();
+    }
+    public function hapus($id)
+    {
+        Perusahaan::where('id', $id)->update([
+            'periode_id' => null
+        ]);
+        return back();
     }
 }

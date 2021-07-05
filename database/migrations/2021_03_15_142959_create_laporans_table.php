@@ -16,7 +16,7 @@ class CreateLaporansTable extends Migration
         Schema::create('laporans', function (Blueprint $table) {
             $table->id();
             $table->text('laporan');
-            $table->unsignedInteger('siswa_id');
+            $table->unsignedInteger('siswa_id')->constrained('siswas');
             $table->timestamps();
         });
     }

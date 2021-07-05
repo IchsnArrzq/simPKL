@@ -8,18 +8,13 @@ class Siswa extends Model
 {
     protected $fillable = [
         'nis',
-        'nisn',
         'nama',
-        'ttl',
+        'tingkat',
         'jurusan_id',
-        'periode_id',
-        'pembimbing_id',
-        'kakomli_id',
-        'perusahaan_id',
+        'pembimbing_industri_id',
+        'pembimbing_sekolah_id',
         'user_id'
     ];
-
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -28,32 +23,24 @@ class Siswa extends Model
     {
         return $this->belongsTo(Jurusan::class);
     }
-    public function pembimbing()
+    public function pembimbing_sekolah()
     {
-        return $this->belongsTo(Pembimbing::class);
+        return $this->belongsTo(PembimbingSekolah::class);
     }
-    public function kakomli()
+    public function pembimbing_industri()
     {
-        return $this->belongsTo(Kakomli::class);
-    }
-    public function periode()
-    {
-        return $this->belongsTo(Periode ::class);
-    }
-    public function rapot()
-    {
-        return $this->hasOne(Rapot::class);
+        return $this->belongsTo(PembimbingIndustri::class);
     }
     public function jurnal()
     {
         return $this->hasMany(Jurnal::class);
     }
-    public function laporan()
+    public function rapot()
     {
-        return $this->hasMany(Laporan::class);
+        return $this->hasOne(Rapot::class);
     }
-    public function perusahaan()
+    public function sertifikat()
     {
-        return $this->belongsTo(Perusahaan::class);
+        return $this->hasOne(Sertifikat::class);
     }
 }

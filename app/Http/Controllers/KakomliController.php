@@ -2,15 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jurusan;
-use App\Kakomli;
-use App\Laporan;
-use App\Pembimbing;
-use App\Periode;
-use App\Perusahaan;
-use App\Rapot;
-use App\Siswa;
-use App\User;
+use App\{Jurusan,Kakomli,Laporan,PembimbingIndustri,PembimbingSekolah,Periode,Perusahaan,Rapot,Siswa,User};
 use Illuminate\Http\Request;
 
 class KakomliController extends Controller
@@ -22,12 +14,8 @@ class KakomliController extends Controller
      */
     public function index()
     {
-        $kakomli =  Kakomli::where('user_id',auth()->user()->id)->get();
-        foreach($kakomli as $data){
-            $id = $data->id;
-        }
-        return view('kakomli.profile.index', [
-            'kakomli' => Kakomli::findOrFail($id),
+        return view('home', [
+            'kakomli' => User::findOrFail(auth()->user()->id)->kakomli,
             'jurusan' => Jurusan::all()
         ]);
     }
@@ -84,10 +72,13 @@ class KakomliController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'required|string',
+            'jurusan_id' => 'required'
+        ]);
+
         Kakomli::where('id',$id)->update([
             'nama' => $request->nama,
-            'ttl' => $request->ttl,
             'jurusan_id' => $request->jurusan_id
         ]);
         return back()->with('success','Berhasil Mengupdate Profile');
@@ -103,14 +94,55 @@ class KakomliController extends Controller
     {
         //
     }
-    public function getSiswa()
+    public function siswa()
     {
-        return view('kakomli.siswa.get',[
-            'siswa' => Siswa::simplePaginate(10),
-            'pembimbing' => Pembimbing::all(),
-            'periode' => Periode::all(),
-            'perusahaan' => Perusahaan::all()
+        return view('kakomli.siswa.index',[
+            'siswa' => Siswa::simplePaginate(10)
         ]);
+    }
+    public function pembimbing()
+    {
+        return view('kakomli.pembimbing.index',[
+            'pembimbing_sekolah' => User::where('role', 'pembimbing_sekolah')->paginate(10),
+            'pembimbing_industri' => User::where('role', 'pembimbing_industri')->paginate(10)
+        ]);
+    }
+    public function siswa_pembimbing()
+    {
+        return view('kakomli.siswa.pembimbing',[
+            'pembimbing_sekolah' => User::where('role', 'pembimbing_sekolah')->paginate(10),
+            'pembimbing_industri' => User::where('role', 'pembimbing_industri')->paginate(10),
+            'siswa' => Siswa::where('jurusan_id','!=',null)
+                                ->where('pembimbing_sekolah_id',null)
+                                ->paginate(10)
+        ]);
+    }
+    public function pembimbing_show($id)
+    {
+        $pembimbing = User::find($id)->pembimbing_sekolah->id;
+        return view('kakomli.pembimbing.show', [
+            'user' => User::findOrFail($id),
+            'siswa' => Siswa::where('pembimbing_sekolah_id',null)->paginate(10),
+            'siswa_pembimbing' => Siswa::where('pembimbing_sekolah_id',$pembimbing)->paginate(10)
+        ]);
+    }
+    public function pembimbing_update(Request $request,$id)
+    {
+        for ($i=0; $i < count($request->id); $i++) {
+            Siswa::where('id',$request->id[$i])->update([
+                'pembimbing_sekolah_id' => $id
+            ]);
+        }
+        return back();
+    }
+    public function pembimbing_update_siswa(Request $request,$id)
+    {
+        for ($i=0; $i < count($request->id); $i++) {
+            Siswa::where('id',$request->id[$i])->update([
+                'pembimbing_sekolah_id' => null
+            ]);
+        }
+        return back();
     }
     public function getPeriode($id)
     {

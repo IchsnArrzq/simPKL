@@ -18,9 +18,13 @@ class Jurusan extends Model
     {
         return $this->hasMany(Kakomli::class);
     }
-    public function pembimbing()
+    public function pembimbing_sekolah()
     {
-        return $this->hasMany(Pembimbing::class);
+        return $this->hasMany(PembimbingSekolah::class);
+    }
+    public function pembimbing_industri()
+    {
+        return $this->hasMany(PembimbingIndustri::class);
     }
     public function siswa()
     {

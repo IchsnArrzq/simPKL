@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JurnalRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\SiswaRequest;
-use App\Jurusan;
-use App\User;
-use App\Kakomli;
-use App\Pembimbing;
-use App\Jurnal;
-use App\Laporan;
-use App\Periode;
-use App\Perusahaan;
-use App\Rapot;
-use App\Siswa;
+use App\{Jurnal, Laporan, Rapot, Sertifikat, Siswa, User};
+use App\Imports\SiswaImport;
+use App\Imports\UserImport;
+use Exception;
+use Illuminate\Support\Facades\DB;
 use File;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+
 class SiswaController extends Controller
 {
     /**
@@ -25,12 +21,8 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        return view('siswa.profile.index', [
-            'siswa' => Siswa::find(User::find(auth()->user()->id)->siswa->id),
-            'jurusan' => Jurusan::all(),
-            'pembimbing' => Pembimbing::all(),
-            'kakomli' => Kakomli::all(),
-            'perusahaan' => Perusahaan::all()
+        return view('admin.siswa.index', [
+            'user' => User::where('role', 'siswa')->latest()->paginate(10),
         ]);
     }
 
@@ -41,7 +33,9 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.siswa.create', [
+            'user' => new User()
+        ]);
     }
 
     /**
@@ -52,7 +46,26 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'email' => 'required|unique:users',
+            'password' => 'required'
+        ]);
+        $data = $request->all();
+        $data['role'] = 'siswa';
+        $data['password'] = Hash::make($data['password']);
+        $resource = User::create($data);
+        $resource->save();
+        DB::beginTransaction();
+        try {
+            Siswa::create([
+                'user_id' => $resource->id
+            ]);
+            DB::commit();
+            return back()->with('success', $resource);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -63,7 +76,9 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.siswa.show', [
+            'user' => User::findOrFail($id)
+        ]);
     }
 
     /**
@@ -86,14 +101,7 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request = $request->all();
-        unset($request['_token']);
-        unset($request['_method']);
-        unset($request['action']);
-        $pembimbing = Pembimbing::findOrFail($request['pembimbing_id']);
-        $request['periode_id'] = $pembimbing->periode_id;
-        Siswa::where('id',$id)->update($request);
-        return back()->with('success','Success Update Profile');
+
     }
 
     /**
@@ -108,59 +116,85 @@ class SiswaController extends Controller
     }
     public function getJurnal()
     {
-        return view('siswa.jurnal.get',[
-            'jurnal' => Jurnal::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
+        return view('siswa.jurnal.get', [
+            'jurnal' => Jurnal::where('siswa_id', User::find(auth()->user()->id)->siswa->id)->get()
         ]);
     }
     public function setJurnal()
     {
         return view('siswa.jurnal.set');
     }
-    public function storeJurnal(JurnalRequest $request)
+    public function storeJurnal(Request $request)
     {
         $request = $request->all();
         $siswa = User::find(auth()->user()->id)->siswa;
         $request['siswa_id'] = $siswa->id;
         $request['jurusan_id'] = $siswa->jurusan_id;
         Jurnal::create($request);
-        return back()->with('success','Berhasil Membuat Jurnal');
+        return back()->with('success', 'Berhasil Membuat Jurnal');
     }
     public function getLaporan()
     {
-        return view('siswa.laporan.get',[
-            'laporan' => Laporan::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
+        return view('siswa.laporan.get', [
+            'laporan' => Laporan::where('siswa_id', User::find(auth()->user()->id)->siswa->id)->get()
         ]);
     }
     public function storeLaporan(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'laporan' => 'required'
         ]);
-        $ekstensi = ['application/pdf','application/msword'];
+        $ekstensi = ['application/pdf', 'application/msword'];
         $laporan = $request->file('laporan');
-        if(in_array($laporan->getMimeType(),$ekstensi)){
+        if (in_array($laporan->getMimeType(), $ekstensi)) {
             $siswa = User::findOrFail(auth()->user()->id)->siswa;
             Laporan::create([
-                'laporan' => $siswa->id.'_'.$laporan->getClientOriginalName(),
+                'laporan' => $siswa->id . '_' . $laporan->getClientOriginalName(),
                 'siswa_id' => $siswa->id
             ]);
-            $laporan->move('laporanSiswa',$siswa->id.'_'.$laporan->getClientOriginalName());
-            return back()->with('success','Berhasil Upload Laporan');
-        }else{
-            return back()->with('error','Ekstensi dilarang hanya word dan pdf saja');
+            $laporan->move('laporanSiswa', $siswa->id . '_' . $laporan->getClientOriginalName());
+            return back()->with('success', 'Berhasil Upload Laporan');
+        } else {
+            return back()->with('error', 'Ekstensi dilarang hanya word dan pdf saja');
         }
     }
     public function deleteLaporan($id)
     {
         $laporan = Laporan::findOrFail($id);
-        File::delete('laporanSiswa/'.$laporan->laporan);
+        File::delete('laporanSiswa/' . $laporan->laporan);
         $laporan->delete();
-        return back()->with('success','Berhasil Menghapus File');
+        return back()->with('success', 'Berhasil Menghapus File');
     }
     public function getRapot()
     {
-        return view('siswa.rapot.get',[
-            'rapot' => Rapot::where('siswa_id',User::find(auth()->user()->id)->siswa->id)->get()
+        return view('siswa.rapot.get', [
+            'rapot' => Rapot::where('siswa_id', User::find(auth()->user()->id)->siswa->id)->get()
         ]);
+    }
+    public function import(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+        try {
+            $file = $request->file('file');
+            $name_file = rand().'_'.$file->getClientOriginalName();
+            $file->move('excel', $name_file);
+            Excel::import(new UserImport, public_path('excel/' . $name_file));
+            Excel::import(new SiswaImport, public_path('excel/' . $name_file));
+            return back()->with('success', 'Berhasil');
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    public function getSertifikat()
+    {
+        if(User::find(auth()->user()->id)->siswa->sertifikat == null){
+            return back()->with('error', 'sertifikat belum diberi');
+        }else{
+            return view('siswa.sertifikat.get',[
+                'siswa' => User::find(auth()->user()->id)->siswa->sertifikat
+            ]);
+        }
     }
 }

@@ -23,7 +23,6 @@ class CreateJurnalsTable extends Migration
             $table->text('hasil');
             $table->text('keterangan');
             $table->unsignedInteger('siswa_id');
-            $table->unsignedInteger('jurusan_id');
             $table->timestamps();
         });
     }

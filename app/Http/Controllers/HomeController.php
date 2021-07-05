@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Periode;
+use App\Jurusan;
+use App\Perusahaan;
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,7 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         return view('home',[
-            'periode' => Periode::find(1)
+            'user' => User::findOrFail(auth()->user()->id),
+            'jurusan' => Jurusan::get(),
+            'perusahaan' => Perusahaan::get()
         ]);
     }
 }

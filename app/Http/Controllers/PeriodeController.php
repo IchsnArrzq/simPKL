@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Periode;
+use App\Perusahaan;
+
 class PeriodeController extends Controller
 {
     /**
@@ -14,8 +16,8 @@ class PeriodeController extends Controller
     public function index()
     {
         //
-        return view('admin.periode', [
-            'periode' => Periode::all()
+        return view('admin.periode.index', [
+            'periode' => Periode::latest()->get()
         ]);
     }
 
@@ -40,9 +42,7 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $periode = $request->all();
-        $periode['lama_waktu'] = $periode['selesai'];
         Periode::create($periode);
         return back()->with('success', 'Finish Add new periode');
     }
@@ -55,7 +55,12 @@ class PeriodeController extends Controller
      */
     public function show($id)
     {
-        //
+        $perusahaan = Periode::findOrFail($id);
+        return view('admin.periode.show', [
+            'periode' => $perusahaan,
+            'perusahaan' => Perusahaan::where('periode_id', $perusahaan->id)->latest()->get(),
+            'perusahaan_null' => Perusahaan::where('periode_id', null)->latest()->get()
+        ]);
     }
 
     /**

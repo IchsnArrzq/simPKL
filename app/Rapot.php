@@ -11,15 +11,10 @@ class Rapot extends Model
         'kedisiplinan',
         'kompetensi',
         'sikap',
-        'siswa_id',
-        'pembimbing_id'
+        'siswa_id'
     ];
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);
-    }
-    public function pembimbing()
-    {
-        return $this->belongsTo(Pembimbing::class);
     }
 }

@@ -8,15 +8,21 @@ class Perusahaan extends Model
 {
     //
     protected $fillable = [
-        'perusahaan',
-        'kota'
+        'nama',
+        'kota',
+        'periode_id'
+
     ];
-    public function pembimbing()
+    public function periode()
     {
-        return $this->hasMany(Pembimbing::class);
+        return $this->belongsTo(Periode::class);
     }
-    public function siswa()
+    public function pembimbing_sekolah()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->hasMany(PembimbingSekolah::class);
+    }
+    public function pembimbing_industri()
+    {
+        return $this->hasMany(PembimbingIndustri::class);
     }
 }

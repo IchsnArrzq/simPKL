@@ -1,137 +1,293 @@
 @extends('layouts.app')
-
 @section('content')
 @if(auth()->user()->role == 'admin')
-<div id="card-stats">
-    <div class="row mt-1">
-        <div class="col s12 m6 l3">
-            <div class="card gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
-                <div class="padding-4">
-                    <div class="col s7 m7">
-                        <i class="material-icons background-round mt-5">add_shopping_cart</i>
-                        <p>Orders</p>
-                    </div>
-                    <div class="col s5 m5 right-align">
-                        <h5 class="mb-0">690</h5>
-                        <p class="no-margin">New</p>
-                        <p>6,00,00</p>
-                    </div>
+@section('bread', 'Admin')
+@push('bread')
+<li class="active">Admin</li>
+@endpush
+<div class="card">
+
+</div>
+@endif
+@if(auth()->user()->role === 'kakomli')
+@section('bread', 'Kakomli')
+@push('bread')
+<li class="active">Kakomli</li>
+@endpush
+<div class="container">
+    <div class="row">
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content row">
+                    @isset($user->kakomli)
+                    <form action="{{ route('menu.kakomli.profile.update',$user->kakomli->id) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <div class="form-group col s6">
+                            <label for="">Nama</label>
+                            <input type="text" name="nama" class="form-control" value="{{ $user->kakomli->nama }}">
+
+                            @error('nama')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-group col s6">
+                            <label for="jurusan">Jurusan</label>
+                            <select name="jurusan_id" id="jurusan_id">
+                                @foreach($jurusan as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('jurusan_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-btn">
+                            <button class="btn green">Submit</button>
+                        </div>
+
+                    </form>
+                    @endisset
                 </div>
             </div>
         </div>
-        <div class="col s12 m6 l3">
-            <div class="card gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
-                <div class="padding-4">
-                    <div class="col s7 m7">
-                        <i class="material-icons background-round mt-5">perm_identity</i>
-                        <p>Clients</p>
-                    </div>
-                    <div class="col s5 m5 right-align">
-                        <h5 class="mb-0">1885</h5>
-                        <p class="no-margin">New</p>
-                        <p>1,12,900</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l3">
-            <div class="card gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
-                <div class="padding-4">
-                    <div class="col s7 m7">
-                        <i class="material-icons background-round mt-5">timeline</i>
-                        <p>Sales</p>
-                    </div>
-                    <div class="col s5 m5 right-align">
-                        <h5 class="mb-0">80%</h5>
-                        <p class="no-margin">Growth</p>
-                        <p>3,42,230</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l3">
-            <div class="card gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
-                <div class="padding-4">
-                    <div class="col s7 m7">
-                        <i class="material-icons background-round mt-5">attach_money</i>
-                        <p>Profit</p>
-                    </div>
-                    <div class="col s5 m5 right-align">
-                        <h5 class="mb-0">$890</h5>
-                        <p class="no-margin">Today</p>
-                        <p>$25,000</p>
-                    </div>
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content row">
+                    @isset($user->kakomli->jurusan)
+                    <table>
+                        <tr>
+                            <th>Nama</th>
+                            <th>:</th>
+                            <th>{{ $user->kakomli->nama }}</th>
+                        </tr>
+                        <tr>
+                            <th>Jurusan</th>
+                            <th>:</th>
+                            <th>{{ $user->kakomli->jurusan->nama }}</th>
+                        </tr>
+                    </table>
+                    @endisset
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endif
-@if(auth()->user()->role === 'siswa')
-<script>
-    setTimeout("time()", 1000);
+@if(auth()->user()->role == 'pembimbing_sekolah')
+@section('bread', 'Pembimbing Sekolah')
+@push('bread')
+<li class="active">Pembimbing Sekolah</li>
+@endpush
+<div class="container">
+    <div class="row">
+        <div class="col s6">
+            <div class="">
+                <div class="card-content row">
+                    @isset($user->pembimbing_sekolah)
+                    <form action="{{ route('menu.pembimbing_sekolah.profile.update',$user->pembimbing_sekolah->id) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <div class="form-group col s6">
+                            <label for="">Nama</label>
+                            <input type="text" name="nama" class="form-control" value="{{ $user->pembimbing_sekolah->nama }}">
 
-    function time() {
-        let date = new Date();
-        setTimeout("time()", 1000);
-        document.getElementById('dates').innerHTML = date.getDate();
-        document.getElementById('months').innerHTML = date.getMonth();
-        document.getElementById('years').innerHTML = date.getFullYear();
-        document.getElementById('hours').innerHTML = date.getHours();
-        document.getElementById('minutes').innerHTML = date.getMinutes();
-        document.getElementById('seconds').innerHTML = date.getSeconds();
-    }
-    // if(time() === countDown)
-</script>
-<div id="card-stats">
-    <div class="row mt-1">
-        <div class="col s12 m6 l12">
-            <div class="card hoverable gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1>{{ \Carbon\Carbon::parse($periode->lama_waktu ?? null)->diffForHumans() }}</h1>
-                    <p>{{ $periode->lama_waktu ?? ''}}</p>
+                            @error('nama')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-group col s6">
+                            <label for="jurusan">Jurusan</label>
+                            <select name="jurusan_id" id="jurusan_id">
+                                @foreach($jurusan as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('jurusan_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-group col s6">
+                            <label for="perusahaan">Perusahaan</label>
+                            <select name="perusahaan_id" id="perusahaan_id">
+                                @foreach($perusahaan as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('perusahaan_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-btn">
+                            <button class="btn green">Submit</button>
+                        </div>
+
+                    </form>
+                    @endisset
                 </div>
             </div>
         </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-green-teal gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="hours"></h1>
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content row">
+                    @isset($user->pembimbing_sekolah->jurusan)
+                    <table>
+                        <tr>
+                            <th>Nama</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->nama }}</th>
+                        </tr>
+                        <tr>
+                            <th>Jurusan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->jurusan->nama }}</th>
+                        </tr>
+                        <tr>
+                            <th>Perusahaan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->perusahaan->nama }}</th>
+                        </tr>
+                        @isset($user->pembimbing_sekolah->perusahaan->periode->mulai)
+                        <tr>
+                            <th>mulai</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->perusahaan->periode->mulai }}</th>
+                        </tr>
+                        <tr>
+                            <th>selesai</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->perusahaan->periode->selesai }}</th>
+                        </tr>
+                        <tr>
+                            <th>Tahun Pelajaran</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->perusahaan->periode->tahun_pelajaran }}</th>
+                        </tr>
+                        <tr>
+                            <th>Angkatan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_sekolah->perusahaan->periode->angkatan }}</th>
+                        </tr>
+                        @else
+                        <tr>
+                            <th>
+                                <h3 class="red-text">Tidak Ada di periode</h3>
+                            </th>
+                        </tr>
+                            @endisset
+                    </table>
+                    @endisset
                 </div>
             </div>
         </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-purple-light-blue gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="minutes"></h1>
+    </div>
+</div>
+@endif
+
+@if(auth()->user()->role == 'pembimbing_industri')
+@section('bread', 'pembimbing industri')
+@push('bread')
+<li class="active">pembimbing industri</li>
+@endpush
+<div class="container">
+    <div class="row">
+        <div class="col s6">
+            <div class="">
+                <div class="card-content row">
+                    @isset($user->pembimbing_industri)
+                    <form action="{{ route('menu.pembimbing_industri.profile.update',$user->pembimbing_industri->id) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <div class="form-group col s6">
+                            <label for="">Nama</label>
+                            <input type="text" name="nama" class="form-control" value="{{ $user->pembimbing_industri->nama }}">
+
+                            @error('nama')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-group col s6">
+                            <label for="jurusan">Jurusan</label>
+                            <select name="jurusan_id" id="jurusan_id">
+                                @foreach($jurusan as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('jurusan_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-group col s6">
+                            <label for="perusahaan">Perusahaan</label>
+                            <select name="perusahaan_id" id="perusahaan_id">
+                                @foreach($perusahaan as $row)
+                                <option value="{{ $row->id }}">{{ $row->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('perusahaan_id')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        <div class="form-btn">
+                            <button class="btn green">Submit</button>
+                        </div>
+
+                    </form>
+                    @endisset
                 </div>
             </div>
         </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-purple-deep-orange gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="seconds"></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-light-blue-cyan gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="dates"></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-red-pink gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="months"></h1>
-                </div>
-            </div>
-        </div>
-        <div class="col s12 m6 l2">
-            <div class="card hoverable gradient-45deg-amber-amber gradient-shadow min-height-100 white-text">
-                <div class="align center">
-                    <h1 id="years"></h1>
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content row">
+                    @isset($user->pembimbing_industri->jurusan)
+                    <hr>
+                    <table>
+                        <tr>
+                            <th>Nama</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->nama }}</th>
+                        </tr>
+                        <tr>
+                            <th>Jurusan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->jurusan->nama }}</th>
+                        </tr>
+                        <tr>
+                            <th>Perusahaan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->perusahaan->nama }}</th>
+                        </tr>
+                        @isset($user->pembimbing_industri->perusahaan->periode->mulai)
+                        <tr>
+                            <th>mulai</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->perusahaan->periode->mulai }}</th>
+                        </tr>
+                        <tr>
+                            <th>selesai</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->perusahaan->periode->selesai }}</th>
+                        </tr>
+                        <tr>
+                            <th>Tahun Pelajaran</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->perusahaan->periode->tahun_pelajaran }}</th>
+                        </tr>
+                        <tr>
+                            <th>Angkatan</th>
+                            <th>:</th>
+                            <th>{{ $user->pembimbing_industri->perusahaan->periode->angkatan }}</th>
+                        </tr>
+                        @else
+                        <tr>
+                            <th>
+                                <h3 class="red-text">Tidak Ada di periode</h3>
+                            </th>
+                        </tr>
+                        @endisset
+                    </table>
+                    @endisset
                 </div>
             </div>
         </div>

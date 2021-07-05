@@ -17,8 +17,8 @@ class CreatePeriodesTable extends Migration
             $table->id();
             $table->date('mulai');
             $table->date('selesai');
-            $table->timestamp('lama_waktu');
-            $table->string('status');
+            $table->string('tahun_pelajaran');
+            $table->string('angkatan');
             $table->timestamps();
         });
     }

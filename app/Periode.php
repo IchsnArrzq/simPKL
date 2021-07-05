@@ -10,8 +10,8 @@ class Periode extends Model
     protected $fillable = [
         'mulai',
         'selesai',
-        'lama_waktu',
-        'status'
+        'tahun_pelajaran',
+        'angkatan'
     ];
     public function pembimbing()
     {
@@ -20,5 +20,9 @@ class Periode extends Model
     public function siswa()
     {
         return $this->hasMany(Siswa::class);
+    }
+    public function perusahaan()
+    {
+        return $this->hasMany(Perusahaan::class);
     }
 }

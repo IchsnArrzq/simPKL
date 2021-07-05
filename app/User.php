@@ -16,37 +16,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role'
+        'id', 'email', 'password', 'role'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function siswa()
-    {
-        return $this->hasOne(Siswa::class);
-    }
     public function kakomli()
     {
         return $this->hasOne(Kakomli::class);
     }
-    public function pembimbing()
+    public function siswa()
     {
-        return $this->hasOne(Pembimbing::class);
+        return $this->hasOne(Siswa::class);
+    }
+    public function pembimbing_sekolah()
+    {
+        return $this->hasOne(PembimbingSekolah::class);
+    }
+    public function pembimbing_industri()
+    {
+        return $this->hasOne(PembimbingIndustri::class);
     }
 }

@@ -37,6 +37,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Nama</th>
+                                    <th>Pembimbing Industri</th>
                                     <th data-field="kedisiplinan">kedisiplinan</th>
                                     <th data-field="kompetensi">kompetensi</th>
                                     <th data-field="sikap">sikap</th>
@@ -47,10 +49,18 @@
                                 $no = 1;
                                 @endphp
                                 @foreach($nilai as $data)
+                                <tr>
                                 <td>{{ $no++ }}</td>
+                                <td>{{ $data->siswa->nama}}</td>
+                                @isset($data->siswa->pembimbing_industri->nama)
+                                <td>{{ $data->siswa->pembimbing_industri->nama }}</td>
+                                @else
+                                <td>Belum di setting</td>
+                                @endisset
                                 <td>{{ $data->kedisiplinan }}</td>
                                 <td>{{ $data->kompetensi }}</td>
                                 <td>{{ $data->sikap }}</td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>

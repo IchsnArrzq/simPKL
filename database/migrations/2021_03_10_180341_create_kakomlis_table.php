@@ -15,12 +15,9 @@ class CreateKakomlisTable extends Migration
     {
         Schema::create('kakomlis', function (Blueprint $table) {
             $table->id();
-            $table->string('no_kakomli');
             $table->string('nama')->nullable();
-            $table->date('ttl')->nullable();
-            $table->unsignedInteger('jurusan_id')->nullable();
+            $table->unsignedInteger('jurusan_id')->constrained('jurusans')->nullable();
             $table->foreignId('user_id')->constrained('users');
-            // $table->foreign('jurusan_id')->references('id')->on('jurusans');
             $table->timestamps();
         });
     }
